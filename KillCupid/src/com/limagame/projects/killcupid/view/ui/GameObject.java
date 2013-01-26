@@ -16,13 +16,18 @@ public abstract class GameObject extends AnimatedSprite {
 	// ===========================================================
 
 	public PhysicsHandler mPhysicsHandler;
+	public float width, height;
 
 	// ===========================================================
 	// Constructors
 	// ===========================================================
 
-	public GameObject(final float pX, final float pY, final ITiledTextureRegion pTiledTextureRegion, final VertexBufferObjectManager pVertexBufferObjectManager) {
+	public GameObject(final float pX, final float pY,
+			final ITiledTextureRegion pTiledTextureRegion,
+			final VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
+		width = pTiledTextureRegion.getWidth();
+		height = pTiledTextureRegion.getHeight();
 		this.mPhysicsHandler = new PhysicsHandler(this);
 		this.registerUpdateHandler(this.mPhysicsHandler);
 	}

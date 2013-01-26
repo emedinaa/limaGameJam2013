@@ -24,8 +24,8 @@ public class Player extends GameObject {
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
 		//pTiledTextureRegion.set
 		//setRotation(90);
-		float posX=(float) (GameActivity.WIDTH*0.5-pTiledTextureRegion.getWidth()*0.5);
-		float posY=(float)(GameActivity.HEIGHT-150);
+		float posX=(float) (GameActivity.CAMERA_WIDTH*0.5-pTiledTextureRegion.getWidth()*0.5);
+		float posY=(float)(GameActivity.CAMERA_HEIGHT-150);
 		setPosition(posX,posY);
 	}
 
@@ -48,11 +48,11 @@ public class Player extends GameObject {
 	private void OutOfScreenX() {
 		
 		
-		if (mY > GameActivity.HEIGHT) { // OutOfScreenX (right)
+		if (mY > GameActivity.CAMERA_HEIGHT) { // OutOfScreenX (right)
 			mY = 0;
 		} else if (mY < 0) 
 		{ // OutOfScreenX (left)
-			mY = GameActivity.HEIGHT;
+			mY = GameActivity.CAMERA_HEIGHT;
 		}
 		/*if (mX > AndEngineTutorialActivity.CAMERA_WIDTH) { // OutOfScreenX (right)
 			mX = 0;

@@ -1,12 +1,9 @@
 package com.limagame.projects.killcupid.view.ui;
 
-import java.util.Date;
-
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
 import com.limagame.projects.killcupid.GameActivity;
-
-
 
 public class CupidEnemy extends GameObject {
 
@@ -22,19 +19,21 @@ public class CupidEnemy extends GameObject {
 	// Constructors
 	// ===========================================================
 
-	private float _vx=50;
-	private float _posX=0;
-	private float _posY=0;
-	
-	public CupidEnemy(final float pX, final float pY, final TiledTextureRegion pTiledTextureRegion, 
+	private float _vx = 60;
+	private float _posX = 0;
+	private float _posY = 0;
+
+	public CupidEnemy(final float pX, final float pY,
+			final TiledTextureRegion pTiledTextureRegion,
 			final VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
-		//pTiledTextureRegion.set
-		//setRotation(90);
-		_posX=GameActivity.WIDTH-120;//-pTiledTextureRegion.getWidth()-50;
-		_posY=20;//-pTiledTextureRegion.getHeight();
-		
-		setPosition(_posX,_posY);
+
+		_posX = GameActivity.CAMERA_WIDTH - pTiledTextureRegion.getWidth();
+		_posY = 30;
+
+		setPosition(_posX, _posY);
+		this.mPhysicsHandler.setVelocityX(_vx);
+
 	}
 
 	// ===========================================================
@@ -43,47 +42,39 @@ public class CupidEnemy extends GameObject {
 
 	@Override
 	public void move() {
-
-		this.mPhysicsHandler.setVelocityY(20);
-		//this.mPhysicsHandler.setVelocityY(_vx);
-		//OutOfScreenX();
+		// this.mPhysicsHandler.setVelocityY(_vx);
+		OutOfScreenX();
 		OutOfScreenY();
 	}
 
 	// ===========================================================
 	// Methods
-		// movimiento 
+	// movimiento
 	// ===========================================================
-	
-	private void OutOfScreenY() 
-	{
-		Date date=new Date();
-		mY=_posY+(float)( 2*Math.cos(date.getTime()*002*50) );
-		//mX=(float)(Math.sin(Math.random()*10));
-		/*if(mX< 0)
-		{
-			_vx=-_vx;
-		}
-		if(mX>AndEngineTutorialActivity.CAMERA_WIDTH)
-		{
-			_vx=-_vx;
-		}
-		*/
+
+	private void OutOfScreenY() {
+		mY = _posY + (float) (2 * Math.cos(System.currentTimeMillis() / 50))
+				* 5;
+		// mX=(float)(Math.sin(Math.random()*10));
+		/*
+		 * if(mX< 0) { _vx=-_vx; } if(mX>AndEngineTutorialActivity.CAMERA_WIDTH)
+		 * { _vx=-_vx; }
+		 */
 	}
 
 	private void OutOfScreenX() {
-		
-		
-		if (mY > GameActivity.HEIGHT) { // OutOfScreenX (right)
-			mY = 0;
-		} else if (mY < 0) 
-		{ // OutOfScreenX (left)
-			mY = GameActivity.HEIGHT;
-		}
-		/*if (mX > AndEngineTutorialActivity.CAMERA_WIDTH) { // OutOfScreenX (right)
-			mX = 0;
+
+		if (mX > GameActivity.CAMERA_WIDTH - width) { // OutOfScreenX
+			// (right)
+			this.mPhysicsHandler.setVelocity(-_vx);
 		} else if (mX < 0) { // OutOfScreenX (left)
-			mX = AndEngineTutorialActivity.CAMERA_WIDTH;
-		}*/
+			// mX = AndEngineTutorialActivity.CAMERA_WIDTH;
+			this.mPhysicsHandler.setVelocity(_vx);
+		}
+		/*
+		 * if (mX > AndEngineTutorialActivity.CAMERA_WIDTH) { // OutOfScreenX
+		 * (right) mX = 0; } else if (mX < 0) { // OutOfScreenX (left) mX =
+		 * AndEngineTutorialActivity.CAMERA_WIDTH; }
+		 */
 	}
 }
