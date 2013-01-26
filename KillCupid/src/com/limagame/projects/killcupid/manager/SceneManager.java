@@ -3,7 +3,7 @@ package com.limagame.projects.killcupid.manager;
 import org.andengine.engine.Engine;
 import org.andengine.entity.scene.Scene;
 
-import com.limagame.projects.killcupid.BaseScene;
+import com.limagame.projects.killcupid.scene.BaseScene;
 import com.limagame.projects.killcupid.scene.SplashScene;
 
 public class SceneManager {

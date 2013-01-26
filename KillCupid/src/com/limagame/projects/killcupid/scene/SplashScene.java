@@ -4,7 +4,6 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
-import com.limagame.projects.killcupid.BaseScene;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 
 public class SplashScene extends BaseScene {

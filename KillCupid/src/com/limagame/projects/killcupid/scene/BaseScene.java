@@ -1,4 +1,4 @@
-package com.limagame.projects.killcupid;
+package com.limagame.projects.killcupid.scene;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;

@@ -1,6 +1,5 @@
 package com.limagame.projects.killcupid.scene;
 
-import com.limagame.projects.killcupid.BaseScene;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 
 public class MainMenuScene extends BaseScene {
