@@ -23,9 +23,10 @@ public class Player extends GameObject {
 	public Player(final float pX, final float pY, final TiledTextureRegion pTiledTextureRegion, final VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
 		//pTiledTextureRegion.set
-		setRotation(90);
-		float posX=(float) (GameActivity.WIDTH*0.5+pTiledTextureRegion.getWidth()*0.5);
-		setPosition(40,posX);
+		//setRotation(90);
+		float posX=(float) (GameActivity.WIDTH*0.5-pTiledTextureRegion.getWidth()*0.5);
+		float posY=(float)(GameActivity.HEIGHT-150);
+		setPosition(posX,posY);
 	}
 
 	// ===========================================================

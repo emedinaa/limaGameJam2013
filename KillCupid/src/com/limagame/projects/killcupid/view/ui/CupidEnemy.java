@@ -26,12 +26,13 @@ public class CupidEnemy extends GameObject {
 	private float _posX=0;
 	private float _posY=0;
 	
-	public CupidEnemy(final float pX, final float pY, final TiledTextureRegion pTiledTextureRegion, final VertexBufferObjectManager pVertexBufferObjectManager) {
+	public CupidEnemy(final float pX, final float pY, final TiledTextureRegion pTiledTextureRegion, 
+			final VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
 		//pTiledTextureRegion.set
-		setRotation(90);
-		_posX=GameActivity.WIDTH-pTiledTextureRegion.getWidth()-50;
-		_posY=GameActivity.HEIGHT-pTiledTextureRegion.getHeight();
+		//setRotation(90);
+		_posX=GameActivity.WIDTH-120;//-pTiledTextureRegion.getWidth()-50;
+		_posY=20;//-pTiledTextureRegion.getHeight();
 		
 		setPosition(_posX,_posY);
 	}
@@ -43,7 +44,7 @@ public class CupidEnemy extends GameObject {
 	@Override
 	public void move() {
 
-		this.mPhysicsHandler.setVelocityX(20);
+		this.mPhysicsHandler.setVelocityY(20);
 		//this.mPhysicsHandler.setVelocityY(_vx);
 		//OutOfScreenX();
 		OutOfScreenY();
@@ -57,7 +58,7 @@ public class CupidEnemy extends GameObject {
 	private void OutOfScreenY() 
 	{
 		Date date=new Date();
-		mX=_posX+(float)( 2*Math.cos(date.getTime()*002*50) );
+		mY=_posY+(float)( 2*Math.cos(date.getTime()*002*50) );
 		//mX=(float)(Math.sin(Math.random()*10));
 		/*if(mX< 0)
 		{
