@@ -16,8 +16,8 @@ import com.limagame.projects.killcupid.manager.SceneManager;
 public class GameActivity extends SimpleBaseGameActivity {
 
 	private Camera camera;
-	private static final int WIDTH = 800;
-	private static final int HEIGHT = 480;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 480;
 	private ResourcesManager resourcesManager;
 
 	@Override
