@@ -94,6 +94,16 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public Font mFont;
 	public Font mFontMenu;
 
+	//intro ---
+	public ITextureRegion mIntro01;
+	public ITextureRegion mIntro02;
+	public ITextureRegion mIntro03;
+	public ITextureRegion mIntro04;
+	public ITextureRegion mIntro05;
+	public ITextureRegion mIntro06;
+	public ITextureRegion mIntro07;
+	public ITextureRegion mIntro08;
+	public ITextureRegion mIntro09;
 	// -------------------------------------------------
 
 	@Override
