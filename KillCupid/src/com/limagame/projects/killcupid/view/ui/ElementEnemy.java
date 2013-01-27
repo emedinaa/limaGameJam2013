@@ -5,6 +5,8 @@ package com.limagame.projects.killcupid.view.ui;
 
 import java.util.Random;
 
+import org.andengine.entity.IEntity;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -35,6 +37,9 @@ public class ElementEnemy extends GameObject {
 			ENEMY_RABBIT };
 
 	private Player player;
+	private Sprite _entity=null;
+	private Boolean _change=false;
+	
 
 	public ElementEnemy(Player player, ITiledTextureRegion pTiledTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
@@ -124,7 +129,18 @@ public class ElementEnemy extends GameObject {
 
 	public void activeLoveMode() 
 	{
-		
+		if(!_change)
+		{
+			_change=true;
+			if(_entity==null)
+			{
+				_entity=new Sprite(0, 0, ResourcesManager.getInstance().activity.mHeartComplete, 
+					ResourcesManager.getInstance().activity.getVertexBufferObjectManager());
+			}
+			//_entity=new Enti
+			attachChild(_entity);
+			
+		}
 		//mTextureRegion=GameActivity
 		//mTextureRegion=ResourcesManager.getInstance().activity.mEnemyTiledTextureRegionBear2;
 		
@@ -140,6 +156,15 @@ public class ElementEnemy extends GameObject {
 	}
 
 	public void setNormalMode() {
+		
+		if(_change)
+		{
+			if(_entity!=null)
+			{
+				detachChild(_entity);
+			}
+			_change=false;
+		}
 		inLoveMode = false;
 		if (this.mPhysicsHandler.getVelocityX() > 0) {
 			this.mPhysicsHandler.setVelocityX(-velX);
