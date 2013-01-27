@@ -21,6 +21,9 @@ public class ProjectilSprite extends Sprite
 	private float _vX=0;
 	private float _vY=0;
 	private float _posTmpX=0;
+	private float _angle;
+	private Boolean _rigth=false;
+	
 	public float get_posTmpX() {
 		return _posTmpX;
 	}
@@ -54,6 +57,15 @@ public class ProjectilSprite extends Sprite
 
 	public void set_vX(float _vX) {
 		this._vX = _vX;
+		if(_vX>0)
+		{
+			_rigth=true;
+			setFlippedHorizontal(true);
+		}else
+		{
+			_rigth=false;
+			setFlippedHorizontal(false);
+		}
 	}
 
 	public float get_vY() {
@@ -72,7 +84,8 @@ public class ProjectilSprite extends Sprite
 	{
 		super(pX, pY, pWidth, pHeight, pTextureRegion, vbom);
 		// TODO Auto-generated constructor stub
-		setFlippedHorizontal(true);
+		//setFlippedHorizontal(false);
+		//setFlippedHorizontal(true);
 	}
 	
 	public double  calculateAngle()
@@ -81,6 +94,21 @@ public class ProjectilSprite extends Sprite
 		double  angle=Math.atan2((getY()-get_posTmpY()),(getX()-get_posTmpX()));
 		
 		return angle;
+	}
+
+	public float get_angle() {
+		return _angle;
+	}
+
+	public void set_angle(float _angle) {
+		this._angle = _angle;
+		if(_rigth)
+		{
+			setRotation(-1*_angle);
+		}else
+		{
+			setRotation(1*_angle);
+		}
 	}
 	
 	

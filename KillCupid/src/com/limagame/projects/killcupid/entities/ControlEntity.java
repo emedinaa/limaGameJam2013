@@ -16,8 +16,8 @@ public class ControlEntity extends Entity {
 	}
 
 	private void _createEntity() {
-		spBar = new Sprite(0, 0, resourcesManager.activity.,
-				resourcesManager.activity.getVertexBufferObjectManager());
+		/*spBar = new Sprite(0, 0, resourcesManager.activity.,
+				resourcesManager.activity.getVertexBufferObjectManager());*/
 	}
 
 }
