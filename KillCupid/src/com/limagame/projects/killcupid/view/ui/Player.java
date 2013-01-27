@@ -4,6 +4,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.limagame.projects.killcupid.GameActivity;
+import com.limagame.projects.killcupid.manager.ResourcesManager;
 
 public class Player extends GameObject {
 
@@ -64,6 +65,7 @@ public class Player extends GameObject {
 	public void angryEnemy() {
 		angry = true;
 		angry_time = System.currentTimeMillis();
+		ResourcesManager.getInstance().engine.vibrate(100);
 	}
 
 }

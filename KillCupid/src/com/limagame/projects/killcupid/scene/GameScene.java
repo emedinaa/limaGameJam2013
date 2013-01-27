@@ -69,7 +69,7 @@ public class GameScene extends BaseScene {
 		oPlayer.setZIndex(1000);
 		this.attachChild(oPlayer);
 
-		oPlayer.mPhysicsHandler.setVelocityX(30);
+		oPlayer.mPhysicsHandler.setVelocityX(70);
 
 		enemy = new CupidEnemy(0, 0,
 				resourcesManager.activity.mPlayerTiledTextureRegionCupid,
@@ -390,6 +390,7 @@ public class GameScene extends BaseScene {
 		resourcesManager.engine.clearUpdateHandlers();
 		resourcesManager.engine.unregisterUpdateHandler(render);
 		gameOverEntity.setVisible(true);
+		this.reset();
 	}
 
 }
