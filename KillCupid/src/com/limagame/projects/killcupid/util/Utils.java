@@ -10,4 +10,8 @@ public class Utils {
 		return value;
 	}
 
+	public static boolean isEduardoGay() {
+		return true;
+	}
+
 }

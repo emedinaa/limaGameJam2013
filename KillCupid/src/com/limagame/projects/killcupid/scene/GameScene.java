@@ -16,6 +16,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import android.util.Log;
 
 import com.limagame.projects.killcupid.GameActivity;
+import com.limagame.projects.killcupid.entities.ControlEntity;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 import com.limagame.projects.killcupid.view.ui.CupidEnemy;
 import com.limagame.projects.killcupid.view.ui.ElementEnemy;
@@ -38,6 +39,8 @@ public class GameScene extends BaseScene {
 	private Music bgMusic;
 
 	private boolean ready;
+
+	private ControlEntity controlEntity;
 
 	@Override
 	public void createScene() {
@@ -66,6 +69,10 @@ public class GameScene extends BaseScene {
 				resourcesManager.vbom);
 		this.attachChild(enemy);
 		// displayUtils=new DisplayUtils(this);
+
+		controlEntity = new ControlEntity(resourcesManager);
+		controlEntity.setZIndex(9999);
+		this.attachChild(controlEntity);
 
 		projectilesToBeAdded = new ArrayList<ProjectilSprite>();
 
