@@ -456,6 +456,7 @@ public class GameScene extends BaseScene {
 			gameOverEntity.setGame(false);
 		}
 
+		this.registerTouchArea(gameOverEntity.spGameOver);
 		gameOverEntity.setVisible(true);
 	}
 

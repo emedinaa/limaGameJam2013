@@ -2,26 +2,38 @@ package com.limagame.projects.killcupid.entities;
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITextureRegion;
 
 import com.limagame.projects.killcupid.manager.ResourcesManager;
+import com.limagame.projects.killcupid.manager.SceneManager;
 
 public class GameOverEntity extends Entity {
+
+	public Sprite spGameOver;
 
 	public GameOverEntity() {
 	}
 
 	public void setGame(boolean win) {
-		Sprite spGameOver = null;
+		ITextureRegion tex = null;
 		if (!win) {
-			spGameOver = new Sprite(0, 0,
-					ResourcesManager.getInstance().activity.mGameWin,
-					ResourcesManager.getInstance().vbom);
+			tex = ResourcesManager.getInstance().activity.mGameLose;
 		} else {
-			spGameOver = new Sprite(0, 0,
-					ResourcesManager.getInstance().activity.mGameWin,
-					ResourcesManager.getInstance().vbom);
+			tex = ResourcesManager.getInstance().activity.mGameWin;
 		}
-		attachChild(spGameOver);
-	}
 
+		spGameOver = new Sprite(0, 0, tex, ResourcesManager.getInstance().vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
+					float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				SceneManager.getInstance()
+						.createScene(SceneManager.MENUSCENEID);
+				return true;
+			}
+		};
+
+		attachChild(spGameOver);
+
+	}
 }
