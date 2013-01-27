@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.entities.ControlEntity;
 import com.limagame.projects.killcupid.entities.GameOverEntity;
+import com.limagame.projects.killcupid.manager.ResourcesManager;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 import com.limagame.projects.killcupid.view.ui.CupidEnemy;
 import com.limagame.projects.killcupid.view.ui.ElementEnemy;
@@ -81,7 +82,7 @@ public class GameScene extends BaseScene {
 		/* Create the sprite and add it to the scene. */
 		oPlayer = new Player(
 				resourcesManager.activity.mPlayerTiledTextureRegionRotoman,
-				resourcesManager.vbom);
+				resourcesManager.vbom, listEnemy);
 		oPlayer.setZIndex(1000);
 		this.attachChild(oPlayer);
 
@@ -191,6 +192,9 @@ public class GameScene extends BaseScene {
 					projectile.set_vX(-10);
 				}
 				projectile.set_vY(3);
+
+				ResourcesManager.getInstance().activity.sndArrow.play();
+
 				// this.attachChild(projectile);
 
 				/*
@@ -365,13 +369,16 @@ public class GameScene extends BaseScene {
 
 		switch (key) {
 		case ElementEnemy.ENEMY_BEAR:
-			tmpTiledTextureRegion = resourcesManager.activity.mEnemyTiledTextureRegionBear;
+			tmpTiledTextureRegion = resourcesManager.activity.mEnemyTiledTextureRegionBear
+					.deepCopy();
 			break;
 		case ElementEnemy.ENEMY_PONY:
-			tmpTiledTextureRegion = resourcesManager.activity.mEnemyTiledTextureRegionPony;
+			tmpTiledTextureRegion = resourcesManager.activity.mEnemyTiledTextureRegionPony
+					.deepCopy();
 			break;
 		case ElementEnemy.ENEMY_RABBIT:
-			tmpTiledTextureRegion = resourcesManager.activity.mEnemyTiledTextureRegionRabbit;
+			tmpTiledTextureRegion = resourcesManager.activity.mEnemyTiledTextureRegionRabbit
+					.deepCopy();
 			break;
 		default:
 		}

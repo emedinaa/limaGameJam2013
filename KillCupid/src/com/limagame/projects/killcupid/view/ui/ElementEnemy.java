@@ -97,6 +97,7 @@ public class ElementEnemy extends GameObject {
 	}
 
 	public void OutOfScreenX() {
+
 		if (mX < -width || mX > GameActivity.CAMERA_WIDTH) {
 			destroy = true;
 			this.mPhysicsHandler.setVelocityX(0);
@@ -139,11 +140,13 @@ public class ElementEnemy extends GameObject {
 	}
 
 	public void setNormalMode() {
-		if (player.mPhysicsHandler.getVelocityX() > 0) {
-			player.mPhysicsHandler.setVelocityX(velX);
-		} else {
-			player.mPhysicsHandler.setVelocityX(-velX);
-		}
 		inLoveMode = false;
+		if (this.mPhysicsHandler.getVelocityX() > 0) {
+			this.mPhysicsHandler.setVelocityX(-velX);
+			setFlippedHorizontal(false);
+		} else {
+			this.mPhysicsHandler.setVelocityX(velX);
+			setFlippedHorizontal(true);
+		}
 	}
 }
