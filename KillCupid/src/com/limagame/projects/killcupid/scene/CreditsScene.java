@@ -8,6 +8,10 @@ import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 
 public class CreditsScene extends BaseScene {
 
+	public CreditsScene() {
+
+	}
+
 	@Override
 	public void createScene() {
 		Sprite s = new Sprite(0, 0,

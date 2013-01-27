@@ -2,6 +2,7 @@ package com.limagame.projects.killcupid.view.ui;
 
 import java.util.List;
 
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -23,6 +24,8 @@ public class Player extends GameObject {
 	private long lastCryTime;
 
 	public int score;
+
+	private Sprite spAngryAvailable;
 
 	// ===========================================================
 	// Constants
@@ -54,6 +57,13 @@ public class Player extends GameObject {
 		setPosition(posX, posY);
 		angry = false;
 		score = 0;
+
+		spAngryAvailable = new Sprite(0, 0,
+				ResourcesManager.getInstance().activity.mAngryAvailable,
+				ResourcesManager.getInstance().vbom);
+		spAngryAvailable.setPosition(GameActivity.CAMERA_WIDTH
+				- spAngryAvailable.getWidth(), 0);
+
 	}
 
 	// ===========================================================

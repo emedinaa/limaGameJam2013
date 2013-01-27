@@ -88,6 +88,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public ITextureRegion mMainMenuBg;
 	public ITextureRegion mGameWin;
 	public ITextureRegion mGameLose;
+	public ITextureRegion mAngryAvailable;
 
 	public Sound sndGrito;
 	public Sound sndHits[];
@@ -217,6 +218,10 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 		mTexture = _loadTexture("perdiste.png");
 		this.mGameLose = TextureRegionFactory.extractFromTexture(mTexture);
+
+		mTexture = _loadTexture("face_angry.png");
+		this.mAngryAvailable = TextureRegionFactory
+				.extractFromTexture(mTexture);
 
 		try {
 			this.mBitmapTextureAtlas
