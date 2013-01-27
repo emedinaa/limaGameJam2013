@@ -23,9 +23,9 @@ public class CupidEnemy extends GameObject {
 
 	private boolean running;
 	private float _vx = 60;
-	
-	private Boolean _rigth=false;
-	
+
+	private Boolean _rigth = false;
+
 	public Boolean get_rigth() {
 		return _rigth;
 	}
@@ -72,7 +72,6 @@ public class CupidEnemy extends GameObject {
 
 	public void execute() {
 		if (_posX < 0) {
-			
 			this.mPhysicsHandler.setVelocityX(_vx);
 		} else {
 			this.mPhysicsHandler.setVelocityX(-_vx);
@@ -95,11 +94,11 @@ public class CupidEnemy extends GameObject {
 		if (mX > GameActivity.CAMERA_WIDTH - width) { // OutOfScreenX
 			this.mPhysicsHandler.setVelocity(-_vx);
 			setFlippedHorizontal(false);
-			_rigth=true;
+			_rigth = true;
 		} else if (mX < 0) { // OutOfScreenX (left)
 			setFlippedHorizontal(true);
 			this.mPhysicsHandler.setVelocity(_vx);
-			_rigth=false;
+			_rigth = false;
 		}
 	}
 }

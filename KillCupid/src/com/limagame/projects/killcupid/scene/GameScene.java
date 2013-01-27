@@ -96,7 +96,7 @@ public class GameScene extends BaseScene {
 					moveProjectile();
 					_count++;
 					_updateEnemy();
-					
+
 				} else {
 					_startingLevel();
 				}
@@ -110,8 +110,7 @@ public class GameScene extends BaseScene {
 				ProjectilSprite _projectile;
 				// _projectile.
 				// iterating over all the projectiles (bullets)
-				while (projectiles.hasNext()) 
-				{
+				while (projectiles.hasNext()) {
 					_projectile = projectiles.next();
 
 					float nposX = _projectile.getX() - _projectile.get_vX();
@@ -121,27 +120,24 @@ public class GameScene extends BaseScene {
 					_projectile.setY(nposY);
 					_projectile.set_vY(_projectile.get_vY()
 							+ _projectile.get_gY());
-					
-					_projectile.set_angle(_projectile.get_angle()+1);
-					
-					if (_projectile.getY() >= (resourcesManager.activity.CAMERA_HEIGHT-50))
-					{
+
+					_projectile.set_angle(_projectile.get_angle() + 1);
+
+					if (_projectile.getY() >= (resourcesManager.activity.CAMERA_HEIGHT - 50)) {
 						removeSprite(_projectile, projectiles);
 						continue;
 					}
-					if(_projectile.getX()<=0 || _projectile.getX()>=resourcesManager.activity.CAMERA_WIDTH)
-					{
+					if (_projectile.getX() <= 0
+							|| _projectile.getX() >= resourcesManager.activity.CAMERA_WIDTH) {
 						removeSprite(_projectile, projectiles);
 						continue;
 					}
 
-					
 				}
 			}
 
-			private void showProjectil()
-			{
-				int offX= (int) (enemy.getX());
+			private void showProjectil() {
+				int offX = (int) (enemy.getX());
 				int offY = (int) (enemy.getY());
 
 				final ProjectilSprite projectile;
@@ -152,11 +148,9 @@ public class GameScene extends BaseScene {
 						resourcesManager.activity.mPlayerTiledTextureRegionProjectile);
 				addProjectile(projectile);
 				projectilesToBeAdded.add(projectile);
-				if(enemy.get_rigth()==true)
-				{
+				if (enemy.get_rigth() == true) {
 					projectile.set_vX(10);
-				}else
-				{
+				} else {
 					projectile.set_vX(-10);
 				}
 				projectile.set_vY(3);
@@ -203,15 +197,13 @@ public class GameScene extends BaseScene {
 		}
 
 		// return this.mMainScene;
-		
+
 		setEvents();
 	}
 
-	private void setEvents() 
-	{
+	private void setEvents() {
 		// TODO Auto-generated method stub
-		this.setOnSceneTouchListener(new IOnSceneTouchListener() 
-		{
+		this.setOnSceneTouchListener(new IOnSceneTouchListener() {
 
 			@Override
 			public boolean onSceneTouchEvent(Scene pScene,
@@ -219,10 +211,10 @@ public class GameScene extends BaseScene {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 		});
-		//setOnSceneTouchListener
-		
+		// setOnSceneTouchListener
+
 	}
 
 	protected void addProjectile(Sprite projectile) {
@@ -269,6 +261,12 @@ public class GameScene extends BaseScene {
 		for (ElementEnemy e : listEnemy) {
 			if (e.destroy) {
 				tmpEnemy.add(e);
+			} else {
+				if (controlEntity.isAlive() && e.collidesWith(oPlayer)) {
+					e.destroy = true;
+					e.setVisible(false);
+					controlEntity.removeLive();
+				}
 			}
 		}
 
@@ -281,7 +279,6 @@ public class GameScene extends BaseScene {
 	}
 
 	private void _startingLevel() {
-		oPlayer.setRotation((float) (Math.cos(System.currentTimeMillis() / 100)));
 		if (oPlayer.getX() + oPlayer.width * 0.5f >= GameActivity.CAMERA_WIDTH / 2) {
 			oPlayer.setRotation(0);
 			oPlayer.mPhysicsHandler.setVelocityX(0);
@@ -349,23 +346,23 @@ public class GameScene extends BaseScene {
 			// music.pause();
 		}
 	}
-	
-	//remove enemies
-	
-	public void removeSprite(final ProjectilSprite _sprite, Iterator<ProjectilSprite> it)
-	{
+
+	// remove enemies
+
+	public void removeSprite(final ProjectilSprite _sprite,
+			Iterator<ProjectilSprite> it) {
 		resourcesManager.activity.runOnUpdateThread(new Runnable() {
 
 			@Override
 			public void run() {
 				removeChildSp(_sprite);
-				
+
 			}
 		});
 		it.remove();
 	}
-	public void removeChildSp(Sprite sp)
-	{
+
+	public void removeChildSp(Sprite sp) {
 		this.detachChild(sp);
 	}
 

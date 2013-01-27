@@ -7,6 +7,8 @@ import com.limagame.projects.killcupid.GameActivity;
 
 public class Player extends GameObject {
 
+	public static final int LIVES = 10;
+
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -36,6 +38,7 @@ public class Player extends GameObject {
 
 	@Override
 	public void move() {
+		setRotation((float) (Math.cos(System.currentTimeMillis() / 100)));
 
 		// this.mPhysicsHandler.setVelocityX(100);
 		// this.mPhysicsHandler.setVelocityY(100);
