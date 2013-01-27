@@ -16,7 +16,8 @@ public class ControlEntity extends Entity {
 	}
 
 	private void _createEntity() {
-		spBar = new Sprite(0, 0, resourcesManager.activity.,
+		spBar = new Sprite(0, 0,
+				resourcesManager.activity.mPlayerTiledTextureRegion,
 				resourcesManager.activity.getVertexBufferObjectManager());
 	}
 
