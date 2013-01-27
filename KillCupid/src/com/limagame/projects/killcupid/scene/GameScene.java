@@ -12,6 +12,7 @@ import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
@@ -57,7 +58,16 @@ public class GameScene extends BaseScene {
 
 		listEnemy = new ArrayList<ElementEnemy>();
 
-		setBackground(new Background(1, 1, 1));
+		//setBackground(new Background(1, 1, 1));
+		/*SpriteBackground bg = new SpriteBackground(new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
+				resourcesManager.vbom));
+        this.setBackground(bg); */
+		/*Sprite bg=new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
+					resourcesManager.vbom);
+		bg.setZIndex(1);
+		this.attachChild(bg);*/
+		
+		//--------------------------------------------------------
 
 		/* Create the sprite and add it to the scene. */
 		oPlayer = new Player(

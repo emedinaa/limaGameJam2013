@@ -60,6 +60,8 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public TiledTextureRegion mEnemyTiledTextureRegionBear;
 	public TiledTextureRegion mEnemyTiledTextureRegionPony;
 	public TiledTextureRegion mEnemyTiledTextureRegionRabbit;
+	
+	public TiledTextureRegion mbgTiledTexture;
 
 	private IUpdateHandler render;
 	private Player oPlayer;
@@ -129,6 +131,10 @@ public class GameActivity extends SimpleBaseGameActivity {
 		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"rabit2.png", 1, 1);
+		
+		this.mbgTiledTexture = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
+						"bgGame.png", 1, 1);
 
 		// End Load Enemies
 
