@@ -413,11 +413,7 @@ public class GameScene extends BaseScene {
 		}
 
 		if (bgMusic != null) {
-			bgMusic.setVolume(0.5f);
 			bgMusic.setLooping(true);
-			// music.setLoopCount(yourCount);
-			// music.stop();
-			// music.pause();
 		}
 	}
 
