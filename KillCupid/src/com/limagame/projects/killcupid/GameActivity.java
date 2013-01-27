@@ -58,16 +58,26 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public TiledTextureRegion mBananaTextureRegion;
 	public TiledTextureRegion mFaceTextureRegion;
 
-	public TiledTextureRegion mPlayerTiledTextureRegionBear;
-	public TiledTextureRegion mPlayerTiledTextureRegionRabbit;
-	public TiledTextureRegion mPlayerTiledTextureRegionPonny;
+	//public TiledTextureRegion mPlayerTiledTextureRegionBear;
+	//public TiledTextureRegion mPlayerTiledTextureRegionBear2;
+	
+	//public TiledTextureRegion mPlayerTiledTextureRegionRabbit;
+	//public TiledTextureRegion mPlayerTiledTextureRegionRabbit2;
+	
+	//public TiledTextureRegion mPlayerTiledTextureRegionPonny;
+	//public TiledTextureRegion mPlayerTiledTextureRegionPonny2;
 
 	public TiledTextureRegion mPlayerTiledTextureRegionCupidBoss;
 	public TiledTextureRegion mPlayerTiledTextureRegionProjectile;
 
 	public TiledTextureRegion mEnemyTiledTextureRegionBear;
+	public TiledTextureRegion mEnemyTiledTextureRegionBear2;
+	
 	public TiledTextureRegion mEnemyTiledTextureRegionPony;
+	public TiledTextureRegion mEnemyTiledTextureRegionPony2;
+	
 	public TiledTextureRegion mEnemyTiledTextureRegionRabbit;
+	public TiledTextureRegion mEnemyTiledTextureRegionRabbit2;
 
 	public ITextureRegion mHeartBroken;
 	public ITextureRegion mHeartComplete;
@@ -109,15 +119,27 @@ public class GameActivity extends SimpleBaseGameActivity {
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"cupid1.png", 1, 1);
 
-		this.mPlayerTiledTextureRegionPonny = BitmapTextureAtlasTextureRegionFactory
+		
+		this.mEnemyTiledTextureRegionPony = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"pony.png", 1, 1);
-		this.mPlayerTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
+						"pony1.png", 1, 1);
+		this.mEnemyTiledTextureRegionPony2 = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
+						"pony2.png", 1, 1);
+		
+		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
+						"rabit1.png", 1, 1);
+		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"rabit2.png", 1, 1);
-		this.mPlayerTiledTextureRegionBear = BitmapTextureAtlasTextureRegionFactory
+		
+		this.mEnemyTiledTextureRegionBear = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"bear.png", 1, 1);
+						"bear1.png", 1, 1);
+		this.mEnemyTiledTextureRegionBear2 = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
+						"bear2.png", 1, 1);
 
 		// juanisimo2.png
 		this.mPlayerTiledTextureRegionCupidBoss = BitmapTextureAtlasTextureRegionFactory
