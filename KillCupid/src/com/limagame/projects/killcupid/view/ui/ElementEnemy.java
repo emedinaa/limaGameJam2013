@@ -5,6 +5,7 @@ package com.limagame.projects.killcupid.view.ui;
 
 import java.util.Random;
 
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
@@ -30,9 +31,13 @@ public class ElementEnemy extends GameObject {
 	public static final int ENEMY_DATA[] = { ENEMY_BEAR, ENEMY_PONY,
 			ENEMY_RABBIT };
 
-	public ElementEnemy(ITiledTextureRegion pTiledTextureRegion,
+	private Player player;
+
+	public ElementEnemy(Player player, ITiledTextureRegion pTiledTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(0, 0, pTiledTextureRegion, pVertexBufferObjectManager);
+
+		this.player = player;
 
 		inLoveMode = false;
 
@@ -43,7 +48,7 @@ public class ElementEnemy extends GameObject {
 		if (random < 0.5) {
 			_posX = -pTiledTextureRegion.getWidth();
 			this.mPhysicsHandler.setVelocityX(velX);
-			setFlippedHorizontal(true);
+			this.setFlippedHorizontal(true);
 		} else {
 			_posX = GameActivity.CAMERA_WIDTH;
 			this.mPhysicsHandler.setVelocityX(-velX);
@@ -54,6 +59,17 @@ public class ElementEnemy extends GameObject {
 		setPosition(_posX, _posY);
 
 		destroy = false;
+
+	}
+
+	@Override
+	public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
+			float pTouchAreaLocalX, float pTouchAreaLocalY) {
+		if (pSceneTouchEvent.isActionDown()) {
+			player.angryEnemy();
+			revertSpeed();
+		}
+		return true;
 	}
 
 	@Override
@@ -64,6 +80,7 @@ public class ElementEnemy extends GameObject {
 			} else {
 
 			}
+
 			setRotation((float) (Math.cos(System.currentTimeMillis() / 100)));
 			OutOfScreenX();
 		}
@@ -82,6 +99,16 @@ public class ElementEnemy extends GameObject {
 
 	public void setLoveMode(boolean inLoveMode) {
 		this.inLoveMode = inLoveMode;
+	}
+
+	public void revertSpeed() {
+		this.mPhysicsHandler.setVelocityX(this.mPhysicsHandler.getVelocityX()
+				* -1);
+		if (this.mPhysicsHandler.getVelocityX() > 0) {
+			setFlippedHorizontal(true);
+		} else {
+			setFlippedHorizontal(false);
+		}
 	}
 
 }

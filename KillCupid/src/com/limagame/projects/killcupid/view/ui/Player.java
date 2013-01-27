@@ -7,6 +7,12 @@ import com.limagame.projects.killcupid.GameActivity;
 
 public class Player extends GameObject {
 
+	private static final long TIME_ANGRY = 1000L;
+
+	public static final int LIVES = 10;
+	private boolean angry;
+	private long angry_time;
+
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -28,6 +34,7 @@ public class Player extends GameObject {
 		float posY = (float) (GameActivity.CAMERA_HEIGHT
 				- pTiledTextureRegion.getHeight() + 20);
 		setPosition(posX, posY);
+		angry = false;
 	}
 
 	// ===========================================================
@@ -36,6 +43,14 @@ public class Player extends GameObject {
 
 	@Override
 	public void move() {
+		if (!angry) {
+			setRotation((float) (Math.cos(System.currentTimeMillis() / 100)));
+		} else {
+			if (System.currentTimeMillis() - angry_time > TIME_ANGRY) {
+				angry = false;
+			}
+			setRotation((float) (Math.cos(System.currentTimeMillis())));
+		}
 
 		// this.mPhysicsHandler.setVelocityX(100);
 		// this.mPhysicsHandler.setVelocityY(100);
@@ -46,17 +61,9 @@ public class Player extends GameObject {
 	// Methods
 	// ===========================================================
 
-	private void OutOfScreenX() {
-
-		if (mY > GameActivity.CAMERA_HEIGHT) { // OutOfScreenX (right)
-			mY = 0;
-		} else if (mY < 0) { // OutOfScreenX (left)
-			mY = GameActivity.CAMERA_HEIGHT;
-		}
-		/*
-		 * if (mX > AndEngineTutorialActivity.CAMERA_WIDTH) { // OutOfScreenX
-		 * (right) mX = 0; } else if (mX < 0) { // OutOfScreenX (left) mX =
-		 * AndEngineTutorialActivity.CAMERA_WIDTH; }
-		 */
+	public void angryEnemy() {
+		angry = true;
+		angry_time = System.currentTimeMillis();
 	}
+
 }

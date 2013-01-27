@@ -5,8 +5,8 @@ import org.andengine.entity.scene.Scene;
 
 import com.limagame.projects.killcupid.scene.BaseScene;
 import com.limagame.projects.killcupid.scene.GameScene;
-import com.limagame.projects.killcupid.scene.SplashScene;
 import com.limagame.projects.killcupid.scene.MainMenuScene;
+import com.limagame.projects.killcupid.scene.SplashScene;
 
 public class SceneManager {
 
@@ -112,7 +112,7 @@ public class SceneManager {
 		return splashScene;
 	}
 
-	private void disposeSplashScene() {
+	public void disposeSplashScene() {
 		ResourcesManager.getInstance().unloadSplashScreen();
 		splashScene.disposeScene();
 		splashScene = null;

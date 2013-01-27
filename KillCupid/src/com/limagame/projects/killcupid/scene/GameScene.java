@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 
 import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.entities.ControlEntity;
+import com.limagame.projects.killcupid.entities.GameOverEntity;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 import com.limagame.projects.killcupid.view.ui.CupidEnemy;
 import com.limagame.projects.killcupid.view.ui.ElementEnemy;
@@ -30,7 +31,7 @@ import com.limagame.projects.killcupid.view.ui.ProjectilSprite;
 
 public class GameScene extends BaseScene {
 
-	public static final long TIME_ENEMY_CREATE = 5000L;
+	public static final long TIME_ENEMY_CREATE = 1000L;
 
 	private IUpdateHandler render;
 	private Player oPlayer;
@@ -46,9 +47,12 @@ public class GameScene extends BaseScene {
 	private boolean ready;
 
 	private ControlEntity controlEntity;
+	private GameOverEntity gameOverEntity;
 
 	@Override
 	public void createScene() {
+
+		this.setTouchAreaBindingOnActionDownEnabled(true);
 
 		loadMusics();
 
@@ -57,7 +61,7 @@ public class GameScene extends BaseScene {
 		lastEnemyCreated = System.currentTimeMillis();
 
 		listEnemy = new ArrayList<ElementEnemy>();
-
+		setBackground(new Background(1, 1, 1));
 		//setBackground(new Background(1, 1, 1));
 		/*SpriteBackground bg = new SpriteBackground(new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
 				resourcesManager.vbom));
@@ -85,8 +89,13 @@ public class GameScene extends BaseScene {
 		// displayUtils=new DisplayUtils(this);
 
 		controlEntity = new ControlEntity(resourcesManager);
-		controlEntity.setZIndex(9999);
+		controlEntity.setZIndex(5000);
 		this.attachChild(controlEntity);
+
+		gameOverEntity = new GameOverEntity(resourcesManager);
+		gameOverEntity.setZIndex(9999);
+		gameOverEntity.setVisible(false);
+		this.attachChild(gameOverEntity);
 
 		projectilesToBeAdded = new ArrayList<ProjectilSprite>();
 
@@ -107,11 +116,15 @@ public class GameScene extends BaseScene {
 					moveProjectile();
 					_count++;
 					_updateEnemy();
-					
+
 				} else {
 					_startingLevel();
 				}
 				sortChildren();
+
+				if (!controlEntity.isAlive()) {
+					_stopGame();
+				}
 			}
 
 			private void moveProjectile() {
@@ -121,8 +134,7 @@ public class GameScene extends BaseScene {
 				ProjectilSprite _projectile;
 				// _projectile.
 				// iterating over all the projectiles (bullets)
-				while (projectiles.hasNext()) 
-				{
+				while (projectiles.hasNext()) {
 					_projectile = projectiles.next();
 
 					float nposX = _projectile.getX() - _projectile.get_vX();
@@ -132,27 +144,24 @@ public class GameScene extends BaseScene {
 					_projectile.setY(nposY);
 					_projectile.set_vY(_projectile.get_vY()
 							+ _projectile.get_gY());
-					
-					_projectile.set_angle(_projectile.get_angle()+1);
-					
-					if (_projectile.getY() >= (resourcesManager.activity.CAMERA_HEIGHT-50))
-					{
+
+					_projectile.set_angle(_projectile.get_angle() + 1);
+
+					if (_projectile.getY() >= (GameActivity.CAMERA_HEIGHT - 50)) {
 						removeSprite(_projectile, projectiles);
 						continue;
 					}
-					if(_projectile.getX()<=0 || _projectile.getX()>=resourcesManager.activity.CAMERA_WIDTH)
-					{
+					if (_projectile.getX() <= 0
+							|| _projectile.getX() >= GameActivity.CAMERA_WIDTH) {
 						removeSprite(_projectile, projectiles);
 						continue;
 					}
 
-					
 				}
 			}
 
-			private void showProjectil()
-			{
-				int offX= (int) (enemy.getX());
+			private void showProjectil() {
+				int offX = (int) (enemy.getX());
 				int offY = (int) (enemy.getY());
 
 				final ProjectilSprite projectile;
@@ -163,11 +172,9 @@ public class GameScene extends BaseScene {
 						resourcesManager.activity.mPlayerTiledTextureRegionProjectile);
 				addProjectile(projectile);
 				projectilesToBeAdded.add(projectile);
-				if(enemy.get_rigth()==true)
-				{
+				if (enemy.get_rigth() == true) {
 					projectile.set_vX(10);
-				}else
-				{
+				} else {
 					projectile.set_vX(-10);
 				}
 				projectile.set_vY(3);
@@ -214,15 +221,13 @@ public class GameScene extends BaseScene {
 		}
 
 		// return this.mMainScene;
-		
+
 		setEvents();
 	}
 
-	private void setEvents() 
-	{
+	private void setEvents() {
 		// TODO Auto-generated method stub
-		this.setOnSceneTouchListener(new IOnSceneTouchListener() 
-		{
+		this.setOnSceneTouchListener(new IOnSceneTouchListener() {
 
 			@Override
 			public boolean onSceneTouchEvent(Scene pScene,TouchEvent pSceneTouchEvent) {
@@ -255,10 +260,10 @@ public class GameScene extends BaseScene {
 				}*/
 				return false;
 			}
-			
+
 		});
-		//setOnSceneTouchListener
-		
+		// setOnSceneTouchListener
+
 	}
 
 	protected void addProjectile(Sprite projectile) {
@@ -305,19 +310,25 @@ public class GameScene extends BaseScene {
 		for (ElementEnemy e : listEnemy) {
 			if (e.destroy) {
 				tmpEnemy.add(e);
+			} else {
+				if (controlEntity.isAlive() && e.collidesWith(oPlayer)) {
+					e.setVisible(false);
+					e.destroy = true;
+					controlEntity.removeLive();
+				}
 			}
 		}
 
 		if (!tmpEnemy.isEmpty()) {
 			for (ElementEnemy e : tmpEnemy) {
 				listEnemy.remove(e);
+				detachChild(e);
 			}
 		}
 
 	}
 
 	private void _startingLevel() {
-		oPlayer.setRotation((float) (Math.cos(System.currentTimeMillis() / 100)));
 		if (oPlayer.getX() + oPlayer.width * 0.5f >= GameActivity.CAMERA_WIDTH / 2) {
 			oPlayer.setRotation(0);
 			oPlayer.mPhysicsHandler.setVelocityX(0);
@@ -350,7 +361,7 @@ public class GameScene extends BaseScene {
 		}
 
 		if (tmpTiledTextureRegion != null) {
-			ElementEnemy e = new ElementEnemy(tmpTiledTextureRegion,
+			ElementEnemy e = new ElementEnemy(oPlayer, tmpTiledTextureRegion,
 					resourcesManager.vbom);
 
 			listEnemy.add(e);
@@ -364,6 +375,7 @@ public class GameScene extends BaseScene {
 			}
 
 			this.attachChild(e);
+			this.registerTouchArea(e);
 		}
 
 	}
@@ -385,24 +397,35 @@ public class GameScene extends BaseScene {
 			// music.pause();
 		}
 	}
-	
-	//remove enemies
-	
-	public void removeSprite(final ProjectilSprite _sprite, Iterator<ProjectilSprite> it)
-	{
+
+	// remove enemies
+
+	public void removeSprite(final ProjectilSprite _sprite,
+			Iterator<ProjectilSprite> it) {
 		resourcesManager.activity.runOnUpdateThread(new Runnable() {
 
 			@Override
 			public void run() {
 				removeChildSp(_sprite);
-				
+
 			}
 		});
 		it.remove();
 	}
-	public void removeChildSp(Sprite sp)
-	{
+
+	public void removeChildSp(Sprite sp) {
 		this.detachChild(sp);
+	}
+
+	private void _stopGame() {
+
+		for (ElementEnemy e : listEnemy) {
+			this.unregisterTouchArea(e);
+		}
+
+		resourcesManager.engine.clearUpdateHandlers();
+		resourcesManager.engine.unregisterUpdateHandler(render);
+		gameOverEntity.setVisible(true);
 	}
 
 }

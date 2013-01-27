@@ -1,5 +1,8 @@
 package com.limagame.projects.killcupid;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.andengine.engine.Engine;
 import org.andengine.engine.LimitedFPSEngine;
 import org.andengine.engine.camera.Camera;
@@ -9,6 +12,7 @@ import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.WakeLockOptions;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
+import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -16,8 +20,12 @@ import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
+import org.andengine.opengl.texture.bitmap.BitmapTexture;
+import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TextureRegionFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
+import org.andengine.util.adt.io.in.IInputStreamOpener;
 
 import com.limagame.projects.killcupid.manager.ResourcesManager;
 import com.limagame.projects.killcupid.manager.SceneManager;
@@ -61,7 +69,10 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public TiledTextureRegion mEnemyTiledTextureRegionPony;
 	public TiledTextureRegion mEnemyTiledTextureRegionRabbit;
 	
-	public TiledTextureRegion mbgTiledTexture;
+	public ITextureRegion mbgTiledTexture;
+
+	public ITextureRegion mHeartBroken;
+	public ITextureRegion mHeartComplete;
 
 	private IUpdateHandler render;
 	private Player oPlayer;
@@ -91,10 +102,10 @@ public class GameActivity extends SimpleBaseGameActivity {
 				this.getTextureManager(), 800, 480, TextureOptions.DEFAULT);
 		this.mPlayerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"rotoman1.png", 1, 1);
+						"rotoman2.png", 1, 1);
 		this.mPlayerTiledTextureRegionRotoman = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"rotoman2.png", 1, 1);
+						"rotoman1.png", 1, 1);
 		this.mPlayerTiledTextureRegionCupid = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"cupid1.png", 1, 1);
@@ -134,9 +145,17 @@ public class GameActivity extends SimpleBaseGameActivity {
 		
 		this.mbgTiledTexture = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"bgGame.png", 1, 1);
+						"bgGame.jpg", 1, 1);
 
 		// End Load Enemies
+
+		ITexture mTexture = null;
+
+		mTexture = _loadTexture("heart02.png");
+		this.mHeartBroken = TextureRegionFactory.extractFromTexture(mTexture);
+
+		mTexture = _loadTexture("heart01.png");
+		this.mHeartComplete = TextureRegionFactory.extractFromTexture(mTexture);
 
 		try {
 			this.mBitmapTextureAtlas
@@ -146,6 +165,24 @@ public class GameActivity extends SimpleBaseGameActivity {
 		} catch (TextureAtlasBuilderException e) {
 			// Debug.e(e);
 		}
+	}
+
+	private ITexture _loadTexture(final String path) {
+		ITexture mTexture = null;
+		try {
+			mTexture = new BitmapTexture(this.getTextureManager(),
+					new IInputStreamOpener() {
+						@Override
+						public InputStream open() throws IOException {
+							return getAssets().open(path);
+						}
+					});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		mTexture.load();
+		return mTexture;
 	}
 
 	@Override
