@@ -6,8 +6,6 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-import android.util.Log;
-
 import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.manager.ResourcesManager;
 import com.limagame.projects.killcupid.util.KillCupidConst;
@@ -82,7 +80,6 @@ public class Player extends GameObject {
 				for (ElementEnemy e : lstEnemy) {
 					if (e.isInLoveMode() && e.getX() >= minX
 							&& e.getX() <= maxX) {
-						Log.d("LIMA_GAME_JAM", minX + " ; " + maxX);
 						e.setNormalMode();
 					}
 				}

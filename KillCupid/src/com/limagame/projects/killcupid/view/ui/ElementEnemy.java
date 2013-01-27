@@ -97,6 +97,7 @@ public class ElementEnemy extends GameObject {
 	}
 
 	public void OutOfScreenX() {
+
 		if (mX < -width || mX > GameActivity.CAMERA_WIDTH) {
 			destroy = true;
 			this.mPhysicsHandler.setVelocityX(0);
