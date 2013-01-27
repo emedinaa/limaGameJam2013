@@ -63,6 +63,7 @@ public class Player extends GameObject {
 				ResourcesManager.getInstance().vbom);
 		spAngryAvailable.setPosition(GameActivity.CAMERA_WIDTH
 				- spAngryAvailable.getWidth(), 0);
+		attachChild(spAngryAvailable);
 
 	}
 
@@ -79,6 +80,12 @@ public class Player extends GameObject {
 				angry = false;
 			}
 			setRotation((float) (Math.cos(System.currentTimeMillis())));
+		}
+
+		if (System.currentTimeMillis() - angry_time > TIME_ANGRY) {
+			spAngryAvailable.setVisible(true);
+		} else {
+			spAngryAvailable.setVisible(false);
 		}
 
 		// this.mPhysicsHandler.setVelocityX(100);
