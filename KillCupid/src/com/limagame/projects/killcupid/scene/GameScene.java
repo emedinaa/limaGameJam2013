@@ -17,6 +17,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 
 import android.util.Log;
+import android.view.MotionEvent;
 
 import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.entities.ControlEntity;
@@ -83,7 +84,7 @@ public class GameScene extends BaseScene {
 
 			@Override
 			public void onUpdate(float pSecondsElapsed) {
-				Log.v("console", "render");
+				//Log.v("console", "render");
 
 				if (ready) {
 					if (_count > 40) {
@@ -214,9 +215,34 @@ public class GameScene extends BaseScene {
 		{
 
 			@Override
-			public boolean onSceneTouchEvent(Scene pScene,
-					TouchEvent pSceneTouchEvent) {
+			public boolean onSceneTouchEvent(Scene pScene,TouchEvent pSceneTouchEvent) {
 				// TODO Auto-generated method stub
+				switch (pSceneTouchEvent.getAction())
+				{
+					case MotionEvent.ACTION_DOWN:
+							final float touchX = pSceneTouchEvent.getX();
+							final float touchY = pSceneTouchEvent.getY();
+							Log.v("console","touchX touchY "+touchX+" "+touchY );
+							
+						break;
+					case MotionEvent.ACTION_MOVE:
+						
+						break;
+					case MotionEvent.ACTION_UP:
+						
+						break;
+					default:
+						break;
+				}
+				/*if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) 
+				{
+					final float touchX = pSceneTouchEvent.getX();
+					final float touchY = pSceneTouchEvent.getY();
+					//shootProjectile(touchX, touchY);
+					
+					
+					return true;
+				}*/
 				return false;
 			}
 			
