@@ -122,6 +122,7 @@ public class ElementEnemy extends GameObject {
 	}
 
 	public void activeLoveMode() {
+
 		if (player.getX() > getX()) {
 			this.mPhysicsHandler.setVelocityX(velX * 1.3f);
 			setFlippedHorizontal(true);

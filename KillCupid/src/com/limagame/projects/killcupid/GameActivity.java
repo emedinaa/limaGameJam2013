@@ -82,6 +82,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 	public Sound sndGrito;
 	public Sound sndHits[];
+	public Sound sndHitToPlayer;
 
 	// -------------------------------------------------
 
@@ -221,6 +222,8 @@ public class GameActivity extends SimpleBaseGameActivity {
 		try {
 			sndGrito = SoundFactory.createSoundFromAsset(getEngine()
 					.getSoundManager(), this, "audio/grito1.mp3");
+			sndHitToPlayer = SoundFactory.createSoundFromAsset(getEngine()
+					.getSoundManager(), this, "audio/wuiiii_hit.mp3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

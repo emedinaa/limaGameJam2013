@@ -83,7 +83,6 @@ public class GameScene extends BaseScene {
 				resourcesManager.activity.mPlayerTiledTextureRegionRotoman,
 				resourcesManager.vbom);
 		oPlayer.setZIndex(1000);
-		this.registerTouchArea(oPlayer);
 		this.attachChild(oPlayer);
 
 		oPlayer.mPhysicsHandler.setVelocityX(70);
@@ -327,6 +326,7 @@ public class GameScene extends BaseScene {
 			} else {
 				if (controlEntity.isAlive() && e.isInLoveMode()
 						&& e.collidesWith(oPlayer)) {
+					resourcesManager.activity.sndHitToPlayer.play();
 					e.setVisible(false);
 					e.destroy = true;
 					controlEntity.removeLive();
@@ -349,6 +349,7 @@ public class GameScene extends BaseScene {
 			oPlayer.mPhysicsHandler.setVelocityX(0);
 			ready = true;
 			enemy.execute();
+			this.registerTouchArea(oPlayer);
 		}
 	}
 
