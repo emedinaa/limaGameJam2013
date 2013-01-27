@@ -165,6 +165,8 @@ public class GameActivity extends SimpleBaseGameActivity {
 		} catch (TextureAtlasBuilderException e) {
 			// Debug.e(e);
 		}
+
+		getEngine().enableVibrator(this);
 	}
 
 	private ITexture _loadTexture(final String path) {

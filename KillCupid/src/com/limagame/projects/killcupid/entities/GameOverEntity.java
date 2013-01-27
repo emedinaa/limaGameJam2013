@@ -7,6 +7,7 @@ import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.HorizontalAlign;
+import org.andengine.util.color.Color;
 
 import android.graphics.Typeface;
 
@@ -32,11 +33,12 @@ public class GameOverEntity extends Entity {
 		final VertexBufferObjectManager vertexBufferObjectManager = resourcesManager.activity
 				.getVertexBufferObjectManager();
 
-		final Text centerText = new Text(200, 200, this.mFont, "Game Over!",
+		final Text gameOverText = new Text(200, 200, this.mFont, "Game Over!",
 				new TextOptions(HorizontalAlign.CENTER),
 				vertexBufferObjectManager);
+		gameOverText.setColor(Color.BLUE);
 
-		attachChild(centerText);
+		attachChild(gameOverText);
 
 	}
 }

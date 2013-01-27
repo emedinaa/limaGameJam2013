@@ -86,7 +86,7 @@ public class CupidEnemy extends GameObject {
 
 	private void OutOfScreenY() {
 		mY = _posY + (float) (2 * Math.cos(System.currentTimeMillis() / 50))
-				* 8;
+				* 5;
 	}
 
 	private void OutOfScreenX() {
