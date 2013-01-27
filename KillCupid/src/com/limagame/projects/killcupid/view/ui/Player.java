@@ -5,7 +5,6 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.limagame.projects.killcupid.GameActivity;
 
-
 public class Player extends GameObject {
 
 	// ===========================================================
@@ -20,13 +19,15 @@ public class Player extends GameObject {
 	// Constructors
 	// ===========================================================
 
-	public Player(final float pX, final float pY, final TiledTextureRegion pTiledTextureRegion, final VertexBufferObjectManager pVertexBufferObjectManager) {
-		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
-		//pTiledTextureRegion.set
-		//setRotation(90);
-		float posX=(float) (GameActivity.CAMERA_WIDTH*0.5-pTiledTextureRegion.getWidth()*0.5);
-		float posY=(float)(GameActivity.CAMERA_HEIGHT-150);
-		setPosition(posX,posY);
+	public Player(final TiledTextureRegion pTiledTextureRegion,
+			final VertexBufferObjectManager pVertexBufferObjectManager) {
+		super(0, 0, pTiledTextureRegion, pVertexBufferObjectManager);
+		// pTiledTextureRegion.set
+		// setRotation(90);
+		float posX = -pTiledTextureRegion.getWidth();
+		float posY = (float) (GameActivity.CAMERA_HEIGHT
+				- pTiledTextureRegion.getHeight() + 20);
+		setPosition(posX, posY);
 	}
 
 	// ===========================================================
@@ -36,9 +37,9 @@ public class Player extends GameObject {
 	@Override
 	public void move() {
 
-		//this.mPhysicsHandler.setVelocityX(100);
-		//this.mPhysicsHandler.setVelocityY(100);
-		//OutOfScreenX();
+		// this.mPhysicsHandler.setVelocityX(100);
+		// this.mPhysicsHandler.setVelocityY(100);
+		// OutOfScreenX();
 	}
 
 	// ===========================================================
@@ -46,18 +47,16 @@ public class Player extends GameObject {
 	// ===========================================================
 
 	private void OutOfScreenX() {
-		
-		
+
 		if (mY > GameActivity.CAMERA_HEIGHT) { // OutOfScreenX (right)
 			mY = 0;
-		} else if (mY < 0) 
-		{ // OutOfScreenX (left)
+		} else if (mY < 0) { // OutOfScreenX (left)
 			mY = GameActivity.CAMERA_HEIGHT;
 		}
-		/*if (mX > AndEngineTutorialActivity.CAMERA_WIDTH) { // OutOfScreenX (right)
-			mX = 0;
-		} else if (mX < 0) { // OutOfScreenX (left)
-			mX = AndEngineTutorialActivity.CAMERA_WIDTH;
-		}*/
+		/*
+		 * if (mX > AndEngineTutorialActivity.CAMERA_WIDTH) { // OutOfScreenX
+		 * (right) mX = 0; } else if (mX < 0) { // OutOfScreenX (left) mX =
+		 * AndEngineTutorialActivity.CAMERA_WIDTH; }
+		 */
 	}
 }

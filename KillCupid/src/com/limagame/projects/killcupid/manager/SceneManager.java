@@ -9,11 +9,11 @@ import com.limagame.projects.killcupid.scene.SplashScene;
 import com.limagame.projects.killcupid.scene.MainMenuScene;
 
 public class SceneManager {
-	
-	public static  final int SPLASHSCENEID=100;
-	public static final int MENUSCENEID=101;
-	public static  final int GAMESCENEID=102;
-	public static  final int LOADINGSCENEID=103;
+
+	public static final int SPLASHSCENEID = 100;
+	public static final int MENUSCENEID = 101;
+	public static final int GAMESCENEID = 102;
+	public static final int LOADINGSCENEID = 103;
 	// ---------------------------------------------
 	// SCENES
 	// ---------------------------------------------
@@ -83,29 +83,28 @@ public class SceneManager {
 	public BaseScene getCurrentScene() {
 		return currentScene;
 	}
-	
-	public Scene createScene(int $name)
-	{
-		BaseScene scene=null;
-		
-		switch ($name) 
-		{
-			case SPLASHSCENEID:
-				scene=new SplashScene();
-				break;
-			case GAMESCENEID:
-				scene=new GameScene();
-				break;
-			case MENUSCENEID:
-				scene=new MainMenuScene();
-				break;
-			default:
-				break;
+
+	public Scene createScene(int $name) {
+		BaseScene scene = null;
+
+		switch ($name) {
+		case SPLASHSCENEID:
+			scene = new SplashScene();
+			break;
+		case GAMESCENEID:
+			scene = new GameScene();
+			break;
+		case MENUSCENEID:
+			scene = new MainMenuScene();
+			break;
+		default:
+			break;
 		}
-		
+
 		currentScene = scene;
 		return currentScene;
 	}
+
 	public Scene createSplashScene() {
 		ResourcesManager.getInstance().loadSplashScreen();
 		splashScene = new SplashScene();
