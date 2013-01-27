@@ -65,6 +65,10 @@ public class SceneManager {
 	public Scene createScene(int $name) {
 		BaseScene scene = null;
 
+		if (currentScene != null) {
+			currentScene.disposeScene();
+		}
+
 		switch ($name) {
 		case SPLASHSCENEID:
 			scene = new SplashScene();
@@ -88,18 +92,13 @@ public class SceneManager {
 	}
 
 	/*
-	public Scene createSplashScene() {
-		ResourcesManager.getInstance().loadSplashScreen();
-		splashScene = new SplashScene();
-		currentScene = splashScene;
-		return splashScene;
-	}
-
-	public void disposeSplashScene() {
-		ResourcesManager.getInstance().unloadSplashScreen();
-		splashScene.disposeScene();
-		splashScene = null;
-	}
-	*/
+	 * public Scene createSplashScene() {
+	 * ResourcesManager.getInstance().loadSplashScreen(); splashScene = new
+	 * SplashScene(); currentScene = splashScene; return splashScene; }
+	 * 
+	 * public void disposeSplashScene() {
+	 * ResourcesManager.getInstance().unloadSplashScreen();
+	 * splashScene.disposeScene(); splashScene = null; }
+	 */
 
 }

@@ -13,6 +13,8 @@ import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.WakeLockOptions;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -28,6 +30,7 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.io.in.IInputStreamOpener;
 
+import android.graphics.Typeface;
 import android.view.KeyEvent;
 
 import com.limagame.projects.killcupid.manager.ResourcesManager;
@@ -81,11 +84,15 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public ITextureRegion mHeartComplete;
 	public ITextureRegion mbgTiledTexture;
 	public ITextureRegion mCreditsBg;
+	public ITextureRegion mMainMenuBg;
 
 	public Sound sndGrito;
 	public Sound sndHits[];
 	public Sound sndHitToPlayer;
 	public Sound sndArrow;
+
+	public Font mFont;
+	public Font mFontMenu;
 
 	// -------------------------------------------------
 
@@ -103,6 +110,9 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 	@Override
 	protected void onCreateResources() {
+
+		_loadFont();
+
 		ResourcesManager.prepareManager(mEngine, this, camera,
 				getVertexBufferObjectManager());
 
@@ -172,10 +182,10 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 		ITexture mTexture = null;
 
-		mTexture = _loadTexture("heart02.png");
+		mTexture = _loadTexture("c2.png");
 		this.mHeartBroken = TextureRegionFactory.extractFromTexture(mTexture);
 
-		mTexture = _loadTexture("heart01.png");
+		mTexture = _loadTexture("c1.png");
 		this.mHeartComplete = TextureRegionFactory.extractFromTexture(mTexture);
 
 		mTexture = _loadTexture("bgGame.jpg");
@@ -184,6 +194,9 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 		mTexture = _loadTexture("CREDITOS.png");
 		this.mCreditsBg = TextureRegionFactory.extractFromTexture(mTexture);
+
+		mTexture = _loadTexture("FONDO_MENU.png");
+		this.mMainMenuBg = TextureRegionFactory.extractFromTexture(mTexture);
 
 		try {
 			this.mBitmapTextureAtlas
@@ -219,9 +232,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 	@Override
 	protected Scene onCreateScene() {
-		// return SceneManager.getInstance().createSplashScene();
-		return SceneManager.getInstance().createScene(
-				SceneManager.CREDITSSCENEID);
+		return SceneManager.getInstance().createScene(SceneManager.GAMESCENEID);
 	}
 
 	@Override
@@ -274,6 +285,18 @@ public class GameActivity extends SimpleBaseGameActivity {
 			SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
 		}
 		return false;
+	}
+
+	private void _loadFont() {
+		this.mFont = FontFactory.create(getFontManager(), getTextureManager(),
+				256, 256, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 64);
+		this.mFont.load();
+
+		this.mFontMenu = FontFactory.create(getFontManager(),
+				getTextureManager(), 256, 256,
+				Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32);
+		this.mFontMenu.load();
+
 	}
 
 }
