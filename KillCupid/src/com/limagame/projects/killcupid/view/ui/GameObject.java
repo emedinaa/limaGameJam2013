@@ -43,7 +43,6 @@ public abstract class GameObject extends AnimatedSprite {
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
 		move();
-
 		super.onManagedUpdate(pSecondsElapsed);
 	}
 
