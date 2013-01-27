@@ -26,3 +26,19 @@ KillCupid/bin/classes/com/limagame/projects/killcupid/view/ui/Player.class
 KillCupid/bin/resources.ap_
 
 KillCupid/bin/resources.ap_
+
+*.properties
+
+KillCupid/bin/KillCupid.apk
+
+KillCupid/bin/classes.dex
+
+KillCupid/bin/classes/com/limagame/projects/killcupid/scene/GameScene$1.class
+
+KillCupid/bin/classes/com/limagame/projects/killcupid/scene/GameScene.class
+
+KillCupid/bin/resources.ap_
+
+KillCupid/project.properties
+
+KillCupid/project.properties
