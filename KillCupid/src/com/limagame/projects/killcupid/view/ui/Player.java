@@ -13,11 +13,14 @@ import com.limagame.projects.killcupid.util.KillCupidConst;
 public class Player extends GameObject {
 
 	private static final long TIME_ANGRY = 1000L;
+	private static final long TIME_CRY = 2500L;
 
 	public static final int LIVES = 10;
 	private boolean angry;
 	private long angry_time;
 	private List<ElementEnemy> lstEnemy;
+
+	private long lastCryTime;
 
 	public int score;
 
@@ -39,6 +42,8 @@ public class Player extends GameObject {
 		super(0, 0, pTiledTextureRegion, pVertexBufferObjectManager);
 		// pTiledTextureRegion.set
 		// setRotation(90);
+
+		lastCryTime = 0;
 
 		this.lstEnemy = lstEnemy;
 
@@ -74,7 +79,8 @@ public class Player extends GameObject {
 	@Override
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 			float pTouchAreaLocalX, float pTouchAreaLocalY) {
-		if (pSceneTouchEvent.isActionDown()) {
+		if (pSceneTouchEvent.isActionDown()
+				&& System.currentTimeMillis() - lastCryTime > TIME_CRY) {
 			ResourcesManager.getInstance().activity.sndGrito.play();
 			float minX = getX() - getWidth() * 2;
 			float maxX = getX() + getWidth() * 2.5f;
@@ -87,6 +93,7 @@ public class Player extends GameObject {
 					}
 				}
 			}
+			lastCryTime = System.currentTimeMillis();
 			return true;
 		}
 		return false;
