@@ -8,7 +8,7 @@ import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 
 public class CreditsScene extends BaseScene {
 
-	// Credit
+	// Credit Scene
 	public CreditsScene() {
 
 	}

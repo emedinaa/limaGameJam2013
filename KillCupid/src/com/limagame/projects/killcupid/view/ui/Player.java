@@ -2,7 +2,6 @@ package com.limagame.projects.killcupid.view.ui;
 
 import java.util.List;
 
-import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -24,8 +23,6 @@ public class Player extends GameObject {
 	private long lastCryTime;
 
 	public int score;
-
-	private Sprite spAngryAvailable;
 
 	// ===========================================================
 	// Constants
@@ -58,13 +55,6 @@ public class Player extends GameObject {
 		angry = false;
 		score = 0;
 
-		spAngryAvailable = new Sprite(0, 0,
-				ResourcesManager.getInstance().activity.mAngryAvailable,
-				ResourcesManager.getInstance().vbom);
-		spAngryAvailable.setPosition(GameActivity.CAMERA_WIDTH
-				- spAngryAvailable.getWidth(), 0);
-		attachChild(spAngryAvailable);
-
 	}
 
 	// ===========================================================
@@ -80,12 +70,6 @@ public class Player extends GameObject {
 				angry = false;
 			}
 			setRotation((float) (Math.cos(System.currentTimeMillis())));
-		}
-
-		if (System.currentTimeMillis() - angry_time > TIME_ANGRY) {
-			spAngryAvailable.setVisible(true);
-		} else {
-			spAngryAvailable.setVisible(false);
 		}
 
 		// this.mPhysicsHandler.setVelocityX(100);

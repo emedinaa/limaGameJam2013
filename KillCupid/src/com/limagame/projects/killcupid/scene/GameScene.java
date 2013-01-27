@@ -85,7 +85,7 @@ public class GameScene extends BaseScene {
 		this.attachChild(enemy);
 		// displayUtils=new DisplayUtils(this);
 
-		controlEntity = new ControlEntity(resourcesManager);
+		controlEntity = new ControlEntity();
 		controlEntity.setZIndex(5000);
 		this.attachChild(controlEntity);
 

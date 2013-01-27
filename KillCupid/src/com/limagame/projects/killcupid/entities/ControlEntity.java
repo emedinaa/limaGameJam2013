@@ -6,6 +6,7 @@ import java.util.List;
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;
 
+import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.manager.ResourcesManager;
 import com.limagame.projects.killcupid.view.ui.Player;
 
@@ -15,21 +16,24 @@ public class ControlEntity extends Entity {
 	private ResourcesManager resourcesManager;
 	private int lives;
 
+	private Sprite spAngryAvailable;
+
 	public static final int marginX = 10;
 
-	public ControlEntity(ResourcesManager resourcesManager) {
-		this.resourcesManager = resourcesManager;
+	public ControlEntity() {
+		this.resourcesManager = ResourcesManager.getInstance();
 		_createEntity();
 	}
 
 	private void _createEntity() {
 
-/*<<<<<<< HEAD
-		spBar = new Sprite(0, 0,
-				resourcesManager.activity.mPlayerTiledTextureRegion,
-				resourcesManager.activity.getVertexBufferObjectManager());
+		spAngryAvailable = new Sprite(0, 0,
+				ResourcesManager.getInstance().activity.mAngryAvailable,
+				ResourcesManager.getInstance().vbom);
+		spAngryAvailable.setPosition(GameActivity.CAMERA_WIDTH
+				- spAngryAvailable.getWidth(), 0);
+		attachChild(spAngryAvailable);
 
-=======*/
 		lives = Player.LIVES;
 		lstHealthBar = new ArrayList<Sprite>();
 
