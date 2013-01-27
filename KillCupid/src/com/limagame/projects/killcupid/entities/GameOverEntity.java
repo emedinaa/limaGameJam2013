@@ -26,13 +26,13 @@ public class GameOverEntity extends Entity {
 		this.mFont = FontFactory.create(
 				resourcesManager.activity.getFontManager(),
 				resourcesManager.activity.getTextureManager(), 256, 256,
-				Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32);
+				Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 64);
 		this.mFont.load();
 
 		final VertexBufferObjectManager vertexBufferObjectManager = resourcesManager.activity
 				.getVertexBufferObjectManager();
 
-		final Text centerText = new Text(100, 40, this.mFont, "Game Over!",
+		final Text centerText = new Text(400, 200, this.mFont, "Game Over!",
 				new TextOptions(HorizontalAlign.CENTER),
 				vertexBufferObjectManager);
 
