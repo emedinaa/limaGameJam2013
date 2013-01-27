@@ -26,9 +26,9 @@ public class MainMenuScene extends BaseScene {
 				ResourcesManager.getInstance().vbom);
 		attachChild(spBgMainMenu);
 
-		final Text gameText = new Text(50, GameActivity.CAMERA_HEIGHT - 50,
+		final Text gameText = new Text(50, GameActivity.CAMERA_HEIGHT - 70,
 				ResourcesManager.getInstance().activity.mFontMenu,
-				"Jugar Rotoman", new TextOptions(HorizontalAlign.LEFT),
+				"Jugar Kill Cupid", new TextOptions(HorizontalAlign.LEFT),
 				ResourcesManager.getInstance().vbom) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
@@ -46,7 +46,7 @@ public class MainMenuScene extends BaseScene {
 		//
 
 		final Text creditsText = new Text(GameActivity.CAMERA_WIDTH - 220,
-				GameActivity.CAMERA_HEIGHT - 50,
+				GameActivity.CAMERA_HEIGHT - 70,
 				ResourcesManager.getInstance().activity.mFontMenu, "Créditos",
 				new TextOptions(HorizontalAlign.RIGHT),
 				ResourcesManager.getInstance().vbom) {

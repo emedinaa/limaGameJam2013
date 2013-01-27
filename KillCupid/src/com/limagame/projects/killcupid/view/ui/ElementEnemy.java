@@ -140,10 +140,10 @@ public class ElementEnemy extends GameObject {
 		}
 
 		if (player.getX() > getX()) {
-			this.mPhysicsHandler.setVelocityX(velX * 1.3f);
+			this.mPhysicsHandler.setVelocityX(velX);
 			setFlippedHorizontal(true);
 		} else if (player.getX() < getX()) {
-			this.mPhysicsHandler.setVelocityX(-velX * 1.3f);
+			this.mPhysicsHandler.setVelocityX(-velX);
 			setFlippedHorizontal(false);
 		}
 		inLoveMode = true;
