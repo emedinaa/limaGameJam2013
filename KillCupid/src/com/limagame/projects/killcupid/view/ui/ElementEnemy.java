@@ -10,6 +10,7 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.limagame.projects.killcupid.GameActivity;
+import com.limagame.projects.killcupid.manager.ResourcesManager;
 import com.limagame.projects.killcupid.util.KillCupidConst;
 import com.limagame.projects.killcupid.util.Utils;
 
@@ -22,8 +23,9 @@ public class ElementEnemy extends GameObject {
 	public boolean destroy;
 
 	private boolean inLoveMode;
+	private boolean touched;
 
-	private final float velX;
+	private float velX;
 	private float _posX, _posY;
 	public static final int ENEMY_BEAR = 100;
 	public static final int ENEMY_PONY = 101;
@@ -41,8 +43,9 @@ public class ElementEnemy extends GameObject {
 		this.player = player;
 
 		inLoveMode = false;
+		touched = false;
 
-		velX = Utils.getRandomBetweem(40, 80);
+		velX = Utils.getRandomBetweem(30, 200);
 
 		float random = new Random().nextFloat();
 
@@ -55,8 +58,10 @@ public class ElementEnemy extends GameObject {
 			this.mPhysicsHandler.setVelocityX(-velX);
 		}
 
-		/*_posY = GameActivity.CAMERA_HEIGHT - pTiledTextureRegion.getHeight()
-				+ 10;*/
+		/*
+		 * _posY = GameActivity.CAMERA_HEIGHT - pTiledTextureRegion.getHeight()
+		 * + 10;
+		 */
 		_posY = GameActivity.CAMERA_HEIGHT - KillCupidConst.posElementsY;
 		setPosition(_posX, _posY);
 
@@ -67,23 +72,26 @@ public class ElementEnemy extends GameObject {
 	@Override
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 			float pTouchAreaLocalX, float pTouchAreaLocalY) {
-		if (pSceneTouchEvent.isActionDown()) {
+		if (pSceneTouchEvent.isActionDown() && !touched) {
+			int rnd = new Random()
+					.nextInt(ResourcesManager.getInstance().activity.sndHits.length);
+			ResourcesManager.getInstance().activity.sndHits[rnd].play();
+			touched = true;
 			player.angryEnemy();
 			revertSpeed();
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
 	public void move() {
 		if (!destroy) {
-			if (inLoveMode) {
-
+			if (!inLoveMode) {
+				setRotation((float) (Math.cos(System.currentTimeMillis() / 100)));
 			} else {
-
+				setRotation((float) (Math.cos(System.currentTimeMillis())));
 			}
-
-			setRotation((float) (Math.cos(System.currentTimeMillis() / 100)));
 			OutOfScreenX();
 		}
 	}
@@ -113,4 +121,23 @@ public class ElementEnemy extends GameObject {
 		}
 	}
 
+	public void activeLoveMode() {
+		if (player.getX() > getX()) {
+			this.mPhysicsHandler.setVelocityX(velX * 1.3f);
+			setFlippedHorizontal(true);
+		} else if (player.getX() < getX()) {
+			this.mPhysicsHandler.setVelocityX(-velX * 1.3f);
+			setFlippedHorizontal(false);
+		}
+		inLoveMode = true;
+	}
+
+	public void setNormalMode() {
+		if (player.mPhysicsHandler.getVelocityX() > 0) {
+			player.mPhysicsHandler.setVelocityX(velX);
+		} else {
+			player.mPhysicsHandler.setVelocityX(-velX);
+		}
+		inLoveMode = false;
+	}
 }

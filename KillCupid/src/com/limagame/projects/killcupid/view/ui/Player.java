@@ -1,5 +1,6 @@
 package com.limagame.projects.killcupid.view.ui;
 
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
@@ -12,7 +13,7 @@ public class Player extends GameObject {
 	private static final long TIME_ANGRY = 1000L;
 
 	public static final int LIVES = 10;
-	private boolean angry;
+	private boolean angry, cry;
 	private long angry_time;
 
 	// ===========================================================
@@ -39,6 +40,7 @@ public class Player extends GameObject {
 		
 		setPosition(posX, posY);
 		angry = false;
+		cry = false;
 	}
 
 	// ===========================================================
@@ -59,6 +61,16 @@ public class Player extends GameObject {
 		// this.mPhysicsHandler.setVelocityX(100);
 		// this.mPhysicsHandler.setVelocityY(100);
 		// OutOfScreenX();
+	}
+
+	@Override
+	public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
+			float pTouchAreaLocalX, float pTouchAreaLocalY) {
+		if (pSceneTouchEvent.isActionDown()) {
+			ResourcesManager.getInstance().activity.sndGrito.play();
+			return true;
+		}
+		return false;
 	}
 
 	// ===========================================================

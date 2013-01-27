@@ -52,7 +52,7 @@ public class GameScene extends BaseScene {
 
 		this.setTouchAreaBindingOnActionDownEnabled(true);
 
-		loadMusics();
+		loadMusic();
 
 		ready = false;
 
@@ -83,6 +83,7 @@ public class GameScene extends BaseScene {
 				resourcesManager.activity.mPlayerTiledTextureRegionRotoman,
 				resourcesManager.vbom);
 		oPlayer.setZIndex(1000);
+		this.registerTouchArea(oPlayer);
 		this.attachChild(oPlayer);
 
 		oPlayer.mPhysicsHandler.setVelocityX(70);
@@ -160,6 +161,14 @@ public class GameScene extends BaseScene {
 							|| _projectile.getX() >= GameActivity.CAMERA_WIDTH) {
 						removeSprite(_projectile, projectiles);
 						continue;
+					}
+
+					for (ElementEnemy e : listEnemy) {
+						if (_projectile.isVisible() && !e.isInLoveMode()
+								&& e.collidesWith(_projectile)) {
+							_projectile.setVisible(false);
+							e.activeLoveMode();
+						}
 					}
 
 				}
@@ -316,7 +325,8 @@ public class GameScene extends BaseScene {
 			if (e.destroy) {
 				tmpEnemy.add(e);
 			} else {
-				if (controlEntity.isAlive() && e.collidesWith(oPlayer)) {
+				if (controlEntity.isAlive() && e.isInLoveMode()
+						&& e.collidesWith(oPlayer)) {
 					e.setVisible(false);
 					e.destroy = true;
 					controlEntity.removeLive();
@@ -385,7 +395,7 @@ public class GameScene extends BaseScene {
 
 	}
 
-	private void loadMusics() {
+	private void loadMusic() {
 		try {
 			bgMusic = MusicFactory.createMusicFromAsset(
 					resourcesManager.activity.getMusicManager(),
@@ -426,13 +436,14 @@ public class GameScene extends BaseScene {
 
 		for (ElementEnemy e : listEnemy) {
 			this.unregisterTouchArea(e);
+			detachChild(e);
 		}
+
+		this.unregisterTouchArea(oPlayer);
 
 		resourcesManager.engine.clearUpdateHandlers();
 		resourcesManager.engine.unregisterUpdateHandler(render);
 		gameOverEntity.setVisible(true);
-
-		this.reset();
 	}
 
 }

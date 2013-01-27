@@ -3,10 +3,11 @@ package com.limagame.projects.killcupid;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.LimitedFPSEngine;
 import org.andengine.engine.camera.Camera;
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.WakeLockOptions;
@@ -29,15 +30,12 @@ import org.andengine.util.adt.io.in.IInputStreamOpener;
 
 import com.limagame.projects.killcupid.manager.ResourcesManager;
 import com.limagame.projects.killcupid.manager.SceneManager;
-import com.limagame.projects.killcupid.view.ui.CupidEnemy;
-import com.limagame.projects.killcupid.view.ui.Player;
 
 public class GameActivity extends SimpleBaseGameActivity {
 
 	public Camera camera;
 	public static final int CAMERA_WIDTH = 800;
 	public static final int CAMERA_HEIGHT = 480;
-	private ResourcesManager resourcesManager;
 
 	// --------------------------------------------------
 
@@ -46,7 +44,6 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 	// private BitmapTextureAtlas mBitmapTextureAtlas;W
 
-	private BitmapTextureAtlas mBitmapTextureAtlasRotoman;
 	private BuildableBitmapTextureAtlas mBitmapTextureAtlas;
 
 	public TiledTextureRegion mPlayerTiledTextureRegionRotoman;
@@ -83,9 +80,8 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public ITextureRegion mHeartComplete;
 	public ITextureRegion mbgTiledTexture;
 
-	private IUpdateHandler render;
-	private Player oPlayer;
-	private CupidEnemy enemy;
+	public Sound sndGrito;
+	public Sound sndHits[];
 
 	// -------------------------------------------------
 
@@ -105,7 +101,6 @@ public class GameActivity extends SimpleBaseGameActivity {
 	protected void onCreateResources() {
 		ResourcesManager.prepareManager(mEngine, this, camera,
 				getVertexBufferObjectManager());
-		resourcesManager = ResourcesManager.getInstance();
 
 		this.mBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
 				this.getTextureManager(), 800, 480, TextureOptions.DEFAULT);
@@ -188,6 +183,8 @@ public class GameActivity extends SimpleBaseGameActivity {
 		}
 
 		getEngine().enableVibrator(this);
+
+		loadSounds();
 	}
 
 	private ITexture _loadTexture(final String path) {
@@ -217,6 +214,32 @@ public class GameActivity extends SimpleBaseGameActivity {
 	@Override
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
 		return new LimitedFPSEngine(pEngineOptions, 60);
+	}
+
+	private void loadSounds() {
+		// Cargar grito
+		try {
+			sndGrito = SoundFactory.createSoundFromAsset(getEngine()
+					.getSoundManager(), this, "audio/grito1.mp3");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		sndHits = new Sound[3];
+
+		try {
+			sndHits[0] = SoundFactory.createSoundFromAsset(getEngine()
+					.getSoundManager(), this, "audio/hit1.mp3");
+
+			sndHits[1] = SoundFactory.createSoundFromAsset(getEngine()
+					.getSoundManager(), this, "audio/hit2.mp3");
+
+			sndHits[2] = SoundFactory.createSoundFromAsset(getEngine()
+					.getSoundManager(), this, "audio/hit3.mp3");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

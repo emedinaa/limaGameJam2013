@@ -22,7 +22,7 @@ public class CupidEnemy extends GameObject {
 	// ===========================================================
 
 	private boolean running;
-	private float _vx = 60;
+	private float _vx = 110;
 
 	private Boolean _rigth = false;
 
