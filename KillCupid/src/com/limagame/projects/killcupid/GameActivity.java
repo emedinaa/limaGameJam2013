@@ -126,7 +126,8 @@ public class GameActivity extends SimpleBaseGameActivity {
 		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"rabit1.png", 1, 1);
-		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
+		
+		this.mEnemyTiledTextureRegionRabbit2 = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"rabit2.png", 1, 1);
 		
@@ -148,7 +149,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 		// Load Enemies
 
-		this.mEnemyTiledTextureRegionBear = BitmapTextureAtlasTextureRegionFactory
+		/*this.mEnemyTiledTextureRegionBear = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"bear.png", 1, 1);
 
@@ -158,7 +159,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"rabit2.png", 1, 1);
+						"rabit2.png", 1, 1);*/
 
 		// End Load Enemies
 
