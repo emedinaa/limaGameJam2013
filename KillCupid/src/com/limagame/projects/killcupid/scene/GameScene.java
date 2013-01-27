@@ -81,7 +81,7 @@ public class GameScene extends BaseScene {
 		/* Create the sprite and add it to the scene. */
 		oPlayer = new Player(
 				resourcesManager.activity.mPlayerTiledTextureRegionRotoman,
-				resourcesManager.vbom);
+				resourcesManager.vbom, listEnemy);
 		oPlayer.setZIndex(1000);
 		this.attachChild(oPlayer);
 
