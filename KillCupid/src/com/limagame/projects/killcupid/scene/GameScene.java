@@ -15,6 +15,7 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 
+import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -22,6 +23,7 @@ import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.entities.ControlEntity;
 import com.limagame.projects.killcupid.entities.GameOverEntity;
 import com.limagame.projects.killcupid.manager.ResourcesManager;
+import com.limagame.projects.killcupid.manager.SceneManager;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 import com.limagame.projects.killcupid.view.ui.CupidEnemy;
 import com.limagame.projects.killcupid.view.ui.ElementEnemy;
@@ -66,17 +68,6 @@ public class GameScene extends BaseScene {
 		s.setZIndex(-1);
 		attachChild(s);
 
-		// setBackground(new Background(1, 1, 1));
-		/*
-		 * SpriteBackground bg = new SpriteBackground(new Sprite(0, 0,
-		 * resourcesManager.activity.mbgTiledTexture, resourcesManager.vbom));
-		 * this.setBackground(bg);
-		 */
-		/*
-		 * Sprite bg=new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
-		 * resourcesManager.vbom); bg.setZIndex(1); this.attachChild(bg);
-		 */
-
 		// --------------------------------------------------------
 
 		/* Create the sprite and add it to the scene. */
@@ -98,7 +89,7 @@ public class GameScene extends BaseScene {
 		controlEntity.setZIndex(5000);
 		this.attachChild(controlEntity);
 
-		gameOverEntity = new GameOverEntity(resourcesManager);
+		gameOverEntity = new GameOverEntity();
 		gameOverEntity.setZIndex(9999);
 		gameOverEntity.setVisible(false);
 		this.attachChild(gameOverEntity);
@@ -128,7 +119,7 @@ public class GameScene extends BaseScene {
 				}
 				sortChildren();
 
-				if (!controlEntity.isAlive()) {
+				if (!controlEntity.isAlive() || oPlayer.score >= 20) {
 					_stopGame();
 				}
 			}
@@ -298,7 +289,7 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void onBackKeyPressed() {
-		System.exit(0);
+		SceneManager.getInstance().createScene(SceneManager.MENUSCENEID);
 	}
 
 	@Override
@@ -308,7 +299,10 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-
+		if (bgMusic != null) {
+			bgMusic.stop();
+			bgMusic.release();
+		}
 	}
 
 	/**
@@ -330,10 +324,27 @@ public class GameScene extends BaseScene {
 			} else {
 				if (controlEntity.isAlive() && e.isInLoveMode()
 						&& e.collidesWith(oPlayer)) {
-					resourcesManager.activity.sndHitToPlayer.play();
-					e.setVisible(false);
-					e.destroy = true;
-					controlEntity.removeLive();
+
+					float enX = e.getX() + e.getWidth() * 0.2f;
+					float enY = e.getY() + e.getHeight() * 0.2f;
+
+					float pX = oPlayer.getX() + oPlayer.getWidth() * 0.2f;
+					float pY = oPlayer.getY() + oPlayer.getHeight() * 0.2f;
+
+					RectF rectEnemy = new RectF(enX, enY, enX + e.getWidth()
+							* 0.3f, enY + e.getHeight() * 0.3f);
+
+					RectF rectPlayer = new RectF(pX, pY, pX
+							+ oPlayer.getWidth() * 0.3f, pY
+							+ oPlayer.getHeight() * 0.3f);
+
+					if (rectEnemy.intersect(rectPlayer)) {
+						resourcesManager.activity.sndHitToPlayer.play();
+						e.setVisible(false);
+						e.destroy = true;
+						controlEntity.removeLive();
+					}
+
 				}
 			}
 		}
@@ -407,7 +418,7 @@ public class GameScene extends BaseScene {
 		try {
 			bgMusic = MusicFactory.createMusicFromAsset(
 					resourcesManager.activity.getMusicManager(),
-					resourcesManager.activity, "audio/intro_level1.mp3");
+					resourcesManager.activity, "audio/intro_parte2_MP3.mp3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -447,6 +458,14 @@ public class GameScene extends BaseScene {
 
 		resourcesManager.engine.clearUpdateHandlers();
 		resourcesManager.engine.unregisterUpdateHandler(render);
+
+		if (!controlEntity.isAlive()) {
+			gameOverEntity.setGame(false);
+		} else if (controlEntity.isAlive() && oPlayer.score >= 20) {
+			gameOverEntity.setGame(true);
+		}
+
+		this.registerTouchArea(gameOverEntity.spGameOver);
 		gameOverEntity.setVisible(true);
 	}
 

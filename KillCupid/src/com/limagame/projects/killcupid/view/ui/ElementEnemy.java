@@ -75,7 +75,7 @@ public class ElementEnemy extends GameObject {
 	@Override
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 			float pTouchAreaLocalX, float pTouchAreaLocalY) {
-		if (pSceneTouchEvent.isActionDown() && !touched) {
+		if (inLoveMode && pSceneTouchEvent.isActionDown() && !touched) {
 			int rnd = new Random()
 					.nextInt(ResourcesManager.getInstance().activity.sndHits.length);
 			ResourcesManager.getInstance().activity.sndHits[rnd].play();
@@ -125,16 +125,14 @@ public class ElementEnemy extends GameObject {
 		}
 	}
 
-
-	public void activeLoveMode() 
-	{
-		if(!_change)
-		{
-			_change=true;
-			if(_entity==null)
-			{
-				_entity=new Sprite(0, 0, ResourcesManager.getInstance().activity.mHeartComplete, 
-					ResourcesManager.getInstance().activity.getVertexBufferObjectManager());
+	public void activeLoveMode() {
+		if (!_change) {
+			_change = true;
+			if (_entity == null) {
+				_entity = new Sprite(0, 0,
+						ResourcesManager.getInstance().activity.mHeartComplete,
+						ResourcesManager.getInstance().activity
+								.getVertexBufferObjectManager());
 
 			}
 			// _entity=new Enti
@@ -142,10 +140,10 @@ public class ElementEnemy extends GameObject {
 		}
 
 		if (player.getX() > getX()) {
-			this.mPhysicsHandler.setVelocityX(velX * 1.3f);
+			this.mPhysicsHandler.setVelocityX(velX);
 			setFlippedHorizontal(true);
 		} else if (player.getX() < getX()) {
-			this.mPhysicsHandler.setVelocityX(-velX * 1.3f);
+			this.mPhysicsHandler.setVelocityX(-velX);
 			setFlippedHorizontal(false);
 		}
 		inLoveMode = true;

@@ -15,9 +15,11 @@ public class Player extends GameObject {
 	private static final long TIME_ANGRY = 1000L;
 
 	public static final int LIVES = 10;
-	private boolean angry, cry;
+	private boolean angry;
 	private long angry_time;
 	private List<ElementEnemy> lstEnemy;
+
+	public int score;
 
 	// ===========================================================
 	// Constants
@@ -46,7 +48,7 @@ public class Player extends GameObject {
 
 		setPosition(posX, posY);
 		angry = false;
-		cry = false;
+		score = 0;
 	}
 
 	// ===========================================================
@@ -80,6 +82,7 @@ public class Player extends GameObject {
 				for (ElementEnemy e : lstEnemy) {
 					if (e.isInLoveMode() && e.getX() >= minX
 							&& e.getX() <= maxX) {
+						score++;
 						e.setNormalMode();
 					}
 				}

@@ -1,8 +1,15 @@
 package com.limagame.projects.killcupid.scene;
 
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
+import org.andengine.entity.text.TextOptions;
+import org.andengine.input.touch.TouchEvent;
+import org.andengine.util.HorizontalAlign;
+import org.andengine.util.color.Color;
 
+import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.manager.ResourcesManager;
+import com.limagame.projects.killcupid.manager.SceneManager;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 
 public class MainMenuScene extends BaseScene {
@@ -13,12 +20,52 @@ public class MainMenuScene extends BaseScene {
 
 	@Override
 	public void createScene() {
-		this.setTouchAreaBindingOnActionDownEnabled(true);
 
 		Sprite spBgMainMenu = new Sprite(0, 0,
 				ResourcesManager.getInstance().activity.mMainMenuBg,
 				ResourcesManager.getInstance().vbom);
 		attachChild(spBgMainMenu);
+
+		final Text gameText = new Text(50, GameActivity.CAMERA_HEIGHT - 70,
+				ResourcesManager.getInstance().activity.mFontMenu,
+				"Jugar Kill Cupid", new TextOptions(HorizontalAlign.LEFT),
+				ResourcesManager.getInstance().vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
+					float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				SceneManager.getInstance()
+						.createScene(SceneManager.GAMESCENEID);
+				return true;
+			}
+		};
+
+		gameText.setColor(Color.WHITE);
+
+		attachChild(gameText);
+
+		//
+
+		final Text creditsText = new Text(GameActivity.CAMERA_WIDTH - 220,
+				GameActivity.CAMERA_HEIGHT - 70,
+				ResourcesManager.getInstance().activity.mFontMenu, "Créditos",
+				new TextOptions(HorizontalAlign.RIGHT),
+				ResourcesManager.getInstance().vbom) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
+					float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				SceneManager.getInstance().createScene(
+						SceneManager.CREDITSSCENEID);
+				return true;
+			}
+		};
+
+		creditsText.setColor(Color.WHITE);
+
+		attachChild(creditsText);
+
+		registerTouchArea(gameText);
+		registerTouchArea(creditsText);
+		setTouchAreaBindingOnActionDownEnabled(true);
 
 	}
 
