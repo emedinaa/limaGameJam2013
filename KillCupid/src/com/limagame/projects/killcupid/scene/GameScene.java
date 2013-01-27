@@ -1,5 +1,10 @@
 package com.limagame.projects.killcupid.scene;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
@@ -10,12 +15,15 @@ import android.util.Log;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 import com.limagame.projects.killcupid.view.ui.CupidEnemy;
 import com.limagame.projects.killcupid.view.ui.Player;
+import com.limagame.projects.killcupid.view.ui.ProjectilSprite;
 
 public class GameScene extends BaseScene {
 
 	private IUpdateHandler render;
 	private Player oPlayer;
 	private CupidEnemy enemy;
+	private List<ProjectilSprite>projectilesToBeAdded;
+	private int _count=0;
 	
 	@Override
 	public void createScene() 
@@ -35,6 +43,8 @@ public class GameScene extends BaseScene {
 		this.attachChild(enemy);
     	//displayUtils=new DisplayUtils(this);
     	
+		projectilesToBeAdded = new ArrayList<ProjectilSprite>();
+		
     	render=new IUpdateHandler()
     	{
 
@@ -42,7 +52,53 @@ public class GameScene extends BaseScene {
 			public void onUpdate(float pSecondsElapsed) {
 				// TODO Auto-generated method stub
 				Log.v("console", "render");
-			//	showProjectil();
+				if(_count>40)
+				{
+					_count=0;
+				}
+				
+				if(_count==0)
+				{
+					showProjectil();
+				}
+				moveProjectile();
+				_count++;
+			}
+
+			private void moveProjectile() 
+			{
+				// TODO Auto-generated method stub
+				Iterator<ProjectilSprite> projectiles = projectilesToBeAdded.iterator();
+				ProjectilSprite _projectile;
+				//_projectile.
+				// iterating over all the projectiles (bullets)
+				while (projectiles.hasNext())
+				{
+					_projectile = projectiles.next();
+					
+					float nposX=_projectile.getX()-_projectile.get_vX();
+					float nposY=_projectile.getY()+_projectile.get_vY();
+					
+					_projectile.setX(nposX);
+					_projectile.setY(nposY);
+					_projectile.set_vY(_projectile.get_vY()+_projectile.get_gY());
+					// in case the projectile left the screen
+					/*if (_projectile.getX() >= mCamera.getWidth()
+							|| _projectile.getY() >= mCamera.getHeight()
+									+ _projectile.getHeight()
+							|| _projectile.getY() <= -_projectile.getHeight()) {
+						removeSprite(_projectile, projectiles);
+						continue;
+					}*/
+
+					// if the targets collides with a projectile, remove the
+					// projectile and set the hit flag to true
+					/*if (_target.collidesWith(_projectile)) {
+						removeSprite(_projectile, projectiles);
+						hit = true;
+						break;
+					}*/
+				}
 			}
 
 			private void showProjectil() 
@@ -50,13 +106,16 @@ public class GameScene extends BaseScene {
 					int offX = (int) (enemy.getX());
 					int offY = (int) (enemy.getY());
 
-					final Sprite projectile;
+					final ProjectilSprite projectile;
 					// position the projectile on the player
 					projectile = createSp(offX, offY, resourcesManager.activity.mPlayerTiledTextureRegionProjectile);
 					addProjectile(projectile);
+					projectilesToBeAdded.add(projectile);
+					projectile.set_vX(10);
+					projectile.set_vY(2);
 					//this.attachChild(projectile);
 
-					int realX = (int) (resourcesManager.camera.getWidth() + projectile.getWidth() / 2.0f);
+					/*int realX = (int) (resourcesManager.camera.getWidth() + projectile.getWidth() / 2.0f);
 					float ratio = (float) offY / (float) offX;
 					int realY = (int) ((realX * ratio) + projectile.getY());
 
@@ -65,7 +124,7 @@ public class GameScene extends BaseScene {
 					float length = (float) Math.sqrt((offRealX * offRealX)
 							+ (offRealY * offRealY));
 					float velocity = 480.0f / 1.0f; // 480 pixels / 1 sec
-					float realMoveDuration = length / velocity;
+					float realMoveDuration = length / velocity;*/
 
 					// defining a move modifier from the projectile's position to the
 					// calculated one
@@ -96,10 +155,9 @@ public class GameScene extends BaseScene {
 		this.attachChild(projectile);
 	}
 
-	public Sprite createSp(int dx,int dy,   TiledTextureRegion pTiledTextureRegion)
+	public ProjectilSprite createSp(float dx,float dy, TiledTextureRegion pTiledTextureRegion)
 	{
-		Sprite sp=new Sprite(dx, dy, pTiledTextureRegion, resourcesManager.vbom);
-		
+		ProjectilSprite sp=new ProjectilSprite(dx, dy, 100, 100, pTiledTextureRegion, resourcesManager.vbom);
 		return sp;
 	}
 	
