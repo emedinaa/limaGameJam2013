@@ -117,6 +117,9 @@ public class GameScene extends BaseScene {
 				} else {
 					_startingLevel();
 				}
+
+				controlEntity.setViewAngry(oPlayer.getAngryTime());
+
 				sortChildren();
 
 				if (!controlEntity.isAlive() || oPlayer.score >= 20) {

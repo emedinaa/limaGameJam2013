@@ -48,6 +48,10 @@ public class ControlEntity extends Entity {
 		}
 	}
 
+	public void setViewAngry(boolean visible) {
+		spAngryAvailable.setVisible(visible);
+	}
+
 	public void removeLive() {
 		if (lives > 0) {
 			Sprite s1 = lstHealthBar.get(lives - 1);

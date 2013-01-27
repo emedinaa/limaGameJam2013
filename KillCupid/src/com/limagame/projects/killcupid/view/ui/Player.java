@@ -77,6 +77,10 @@ public class Player extends GameObject {
 		// OutOfScreenX();
 	}
 
+	public boolean getAngryTime() {
+		return System.currentTimeMillis() - lastCryTime > TIME_CRY;
+	}
+
 	@Override
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
 			float pTouchAreaLocalX, float pTouchAreaLocalY) {
