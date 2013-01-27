@@ -75,9 +75,12 @@ public class ProjectilSprite extends Sprite
 		setFlippedHorizontal(true);
 	}
 	
-	public Point calculateAngle()
+	public double  calculateAngle()
 	{
-		return null;
+		//Point p=new Point(0,0);
+		double  angle=Math.atan2((getY()-get_posTmpY()),(getX()-get_posTmpX()));
+		
+		return angle;
 	}
 	
 	
