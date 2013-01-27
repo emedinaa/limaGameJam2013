@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.entities.ControlEntity;
+import com.limagame.projects.killcupid.entities.GameOverEntity;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 import com.limagame.projects.killcupid.view.ui.CupidEnemy;
 import com.limagame.projects.killcupid.view.ui.ElementEnemy;
@@ -44,6 +45,7 @@ public class GameScene extends BaseScene {
 	private boolean ready;
 
 	private ControlEntity controlEntity;
+	private GameOverEntity gameOverEntity;
 
 	@Override
 	public void createScene() {
@@ -74,8 +76,13 @@ public class GameScene extends BaseScene {
 		// displayUtils=new DisplayUtils(this);
 
 		controlEntity = new ControlEntity(resourcesManager);
-		controlEntity.setZIndex(9999);
+		controlEntity.setZIndex(5000);
 		this.attachChild(controlEntity);
+
+		gameOverEntity = new GameOverEntity(resourcesManager);
+		gameOverEntity.setZIndex(9999);
+		gameOverEntity.setVisible(false);
+		this.attachChild(gameOverEntity);
 
 		projectilesToBeAdded = new ArrayList<ProjectilSprite>();
 
@@ -101,6 +108,10 @@ public class GameScene extends BaseScene {
 					_startingLevel();
 				}
 				sortChildren();
+
+				if (!controlEntity.isAlive()) {
+					_stopGame();
+				}
 			}
 
 			private void moveProjectile() {
@@ -264,7 +275,6 @@ public class GameScene extends BaseScene {
 			} else {
 				if (controlEntity.isAlive() && e.collidesWith(oPlayer)) {
 					e.destroy = true;
-					e.setVisible(false);
 					controlEntity.removeLive();
 				}
 			}
@@ -273,6 +283,7 @@ public class GameScene extends BaseScene {
 		if (!tmpEnemy.isEmpty()) {
 			for (ElementEnemy e : tmpEnemy) {
 				listEnemy.remove(e);
+				detachChild(e);
 			}
 		}
 
@@ -364,6 +375,12 @@ public class GameScene extends BaseScene {
 
 	public void removeChildSp(Sprite sp) {
 		this.detachChild(sp);
+	}
+
+	private void _stopGame() {
+		resourcesManager.engine.clearUpdateHandlers();
+		resourcesManager.engine.unregisterUpdateHandler(render);
+		gameOverEntity.setVisible(true);
 	}
 
 }

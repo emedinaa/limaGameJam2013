@@ -172,7 +172,6 @@ public class GameActivity extends SimpleBaseGameActivity {
 						}
 					});
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
