@@ -10,7 +10,6 @@ public class CreditsScene extends BaseScene {
 
 	@Override
 	public void createScene() {
-		this.setTouchAreaBindingOnActionDownEnabled(true);
 		Sprite s = new Sprite(0, 0,
 				ResourcesManager.getInstance().activity.mCreditsBg,
 				ResourcesManager.getInstance().vbom);
