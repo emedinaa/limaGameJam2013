@@ -52,6 +52,7 @@ public class ControlEntity extends Entity {
 					resourcesManager.activity.getVertexBufferObjectManager());
 			lstHealthBar.remove(s1);
 			lstHealthBar.add(lives - 1, s2);
+			s2.setAlpha(0.2f);
 			detachChild(s1);
 			attachChild(s2);
 			s1.dispose();

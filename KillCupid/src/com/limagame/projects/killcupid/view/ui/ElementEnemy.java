@@ -10,6 +10,7 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.limagame.projects.killcupid.GameActivity;
+import com.limagame.projects.killcupid.util.KillCupidConst;
 import com.limagame.projects.killcupid.util.Utils;
 
 /**
@@ -54,8 +55,9 @@ public class ElementEnemy extends GameObject {
 			this.mPhysicsHandler.setVelocityX(-velX);
 		}
 
-		_posY = GameActivity.CAMERA_HEIGHT - pTiledTextureRegion.getHeight()
-				+ 10;
+		/*_posY = GameActivity.CAMERA_HEIGHT - pTiledTextureRegion.getHeight()
+				+ 10;*/
+		_posY = GameActivity.CAMERA_HEIGHT - KillCupidConst.posElementsY;
 		setPosition(_posX, _posY);
 
 		destroy = false;

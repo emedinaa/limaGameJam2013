@@ -5,6 +5,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.manager.ResourcesManager;
+import com.limagame.projects.killcupid.util.KillCupidConst;
 
 public class Player extends GameObject {
 
@@ -33,7 +34,9 @@ public class Player extends GameObject {
 		// setRotation(90);
 		float posX = -pTiledTextureRegion.getWidth();
 		float posY = (float) (GameActivity.CAMERA_HEIGHT
-				- pTiledTextureRegion.getHeight() + 10);
+				- KillCupidConst.posElementsY);
+		//- pTiledTextureRegion.getHeight() + 10);
+		
 		setPosition(posX, posY);
 		angry = false;
 	}
