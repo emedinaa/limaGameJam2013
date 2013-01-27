@@ -298,12 +298,12 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void onBackKeyPressed() {
-
+		System.exit(0);
 	}
 
 	@Override
 	public SceneType getSceneType() {
-		return null;
+		return SceneType.SCENE_GAME;
 	}
 
 	@Override
