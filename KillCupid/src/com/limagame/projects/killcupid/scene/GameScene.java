@@ -11,8 +11,6 @@ import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
@@ -61,17 +59,24 @@ public class GameScene extends BaseScene {
 		lastEnemyCreated = System.currentTimeMillis();
 
 		listEnemy = new ArrayList<ElementEnemy>();
-		setBackground(new Background(1, 1, 1));
-		//setBackground(new Background(1, 1, 1));
-		/*SpriteBackground bg = new SpriteBackground(new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
-				resourcesManager.vbom));
-        this.setBackground(bg); */
-		/*Sprite bg=new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
-					resourcesManager.vbom);
-		bg.setZIndex(1);
-		this.attachChild(bg);*/
-		
-		//--------------------------------------------------------
+
+		Sprite s = new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
+				resourcesManager.vbom);
+		s.setZIndex(-1);
+		attachChild(s);
+
+		// setBackground(new Background(1, 1, 1));
+		/*
+		 * SpriteBackground bg = new SpriteBackground(new Sprite(0, 0,
+		 * resourcesManager.activity.mbgTiledTexture, resourcesManager.vbom));
+		 * this.setBackground(bg);
+		 */
+		/*
+		 * Sprite bg=new Sprite(0, 0, resourcesManager.activity.mbgTiledTexture,
+		 * resourcesManager.vbom); bg.setZIndex(1); this.attachChild(bg);
+		 */
+
+		// --------------------------------------------------------
 
 		/* Create the sprite and add it to the scene. */
 		oPlayer = new Player(
@@ -103,7 +108,7 @@ public class GameScene extends BaseScene {
 
 			@Override
 			public void onUpdate(float pSecondsElapsed) {
-				//Log.v("console", "render");
+				// Log.v("console", "render");
 
 				if (ready) {
 					if (_count > 40) {
@@ -230,34 +235,34 @@ public class GameScene extends BaseScene {
 		this.setOnSceneTouchListener(new IOnSceneTouchListener() {
 
 			@Override
-			public boolean onSceneTouchEvent(Scene pScene,TouchEvent pSceneTouchEvent) {
+			public boolean onSceneTouchEvent(Scene pScene,
+					TouchEvent pSceneTouchEvent) {
 				// TODO Auto-generated method stub
-				switch (pSceneTouchEvent.getAction())
-				{
-					case MotionEvent.ACTION_DOWN:
-							final float touchX = pSceneTouchEvent.getX();
-							final float touchY = pSceneTouchEvent.getY();
-							Log.v("console","touchX touchY "+touchX+" "+touchY );
-							
-						break;
-					case MotionEvent.ACTION_MOVE:
-						
-						break;
-					case MotionEvent.ACTION_UP:
-						
-						break;
-					default:
-						break;
-				}
-				/*if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) 
-				{
+				switch (pSceneTouchEvent.getAction()) {
+				case MotionEvent.ACTION_DOWN:
 					final float touchX = pSceneTouchEvent.getX();
 					final float touchY = pSceneTouchEvent.getY();
-					//shootProjectile(touchX, touchY);
-					
-					
-					return true;
-				}*/
+					Log.v("console", "touchX touchY " + touchX + " " + touchY);
+
+					break;
+				case MotionEvent.ACTION_MOVE:
+
+					break;
+				case MotionEvent.ACTION_UP:
+
+					break;
+				default:
+					break;
+				}
+				/*
+				 * if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
+				 * final float touchX = pSceneTouchEvent.getX(); final float
+				 * touchY = pSceneTouchEvent.getY(); //shootProjectile(touchX,
+				 * touchY);
+				 * 
+				 * 
+				 * return true; }
+				 */
 				return false;
 			}
 
@@ -426,6 +431,7 @@ public class GameScene extends BaseScene {
 		resourcesManager.engine.clearUpdateHandlers();
 		resourcesManager.engine.unregisterUpdateHandler(render);
 		gameOverEntity.setVisible(true);
+
 		this.reset();
 	}
 

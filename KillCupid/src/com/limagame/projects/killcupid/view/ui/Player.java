@@ -33,7 +33,7 @@ public class Player extends GameObject {
 		// setRotation(90);
 		float posX = -pTiledTextureRegion.getWidth();
 		float posY = (float) (GameActivity.CAMERA_HEIGHT
-				- pTiledTextureRegion.getHeight() + 20);
+				- pTiledTextureRegion.getHeight() + 10);
 		setPosition(posX, posY);
 		angry = false;
 	}
