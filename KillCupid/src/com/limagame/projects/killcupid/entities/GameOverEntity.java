@@ -32,7 +32,7 @@ public class GameOverEntity extends Entity {
 		final VertexBufferObjectManager vertexBufferObjectManager = resourcesManager.activity
 				.getVertexBufferObjectManager();
 
-		final Text centerText = new Text(400, 200, this.mFont, "Game Over!",
+		final Text centerText = new Text(200, 200, this.mFont, "Game Over!",
 				new TextOptions(HorizontalAlign.CENTER),
 				vertexBufferObjectManager);
 

@@ -29,7 +29,7 @@ import com.limagame.projects.killcupid.view.ui.ProjectilSprite;
 
 public class GameScene extends BaseScene {
 
-	public static final long TIME_ENEMY_CREATE = 5000L;
+	public static final long TIME_ENEMY_CREATE = 1000L;
 
 	private IUpdateHandler render;
 	private Player oPlayer;
@@ -49,6 +49,8 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void createScene() {
+
+		this.setTouchAreaBindingOnActionDownEnabled(true);
 
 		loadMusics();
 
@@ -134,12 +136,12 @@ public class GameScene extends BaseScene {
 
 					_projectile.set_angle(_projectile.get_angle() + 1);
 
-					if (_projectile.getY() >= (resourcesManager.activity.CAMERA_HEIGHT - 50)) {
+					if (_projectile.getY() >= (GameActivity.CAMERA_HEIGHT - 50)) {
 						removeSprite(_projectile, projectiles);
 						continue;
 					}
 					if (_projectile.getX() <= 0
-							|| _projectile.getX() >= resourcesManager.activity.CAMERA_WIDTH) {
+							|| _projectile.getX() >= GameActivity.CAMERA_WIDTH) {
 						removeSprite(_projectile, projectiles);
 						continue;
 					}
@@ -274,6 +276,7 @@ public class GameScene extends BaseScene {
 				tmpEnemy.add(e);
 			} else {
 				if (controlEntity.isAlive() && e.collidesWith(oPlayer)) {
+					e.setVisible(false);
 					e.destroy = true;
 					controlEntity.removeLive();
 				}
@@ -322,7 +325,7 @@ public class GameScene extends BaseScene {
 		}
 
 		if (tmpTiledTextureRegion != null) {
-			ElementEnemy e = new ElementEnemy(tmpTiledTextureRegion,
+			ElementEnemy e = new ElementEnemy(oPlayer, tmpTiledTextureRegion,
 					resourcesManager.vbom);
 
 			listEnemy.add(e);
@@ -336,6 +339,7 @@ public class GameScene extends BaseScene {
 			}
 
 			this.attachChild(e);
+			this.registerTouchArea(e);
 		}
 
 	}
@@ -378,6 +382,11 @@ public class GameScene extends BaseScene {
 	}
 
 	private void _stopGame() {
+
+		for (ElementEnemy e : listEnemy) {
+			this.unregisterTouchArea(e);
+		}
+
 		resourcesManager.engine.clearUpdateHandlers();
 		resourcesManager.engine.unregisterUpdateHandler(render);
 		gameOverEntity.setVisible(true);
