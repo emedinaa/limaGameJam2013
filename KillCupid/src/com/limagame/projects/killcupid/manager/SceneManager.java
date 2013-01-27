@@ -4,6 +4,7 @@ import org.andengine.engine.Engine;
 import org.andengine.entity.scene.Scene;
 
 import com.limagame.projects.killcupid.scene.BaseScene;
+import com.limagame.projects.killcupid.scene.CreditsScene;
 import com.limagame.projects.killcupid.scene.GameScene;
 import com.limagame.projects.killcupid.scene.MainMenuScene;
 import com.limagame.projects.killcupid.scene.SplashScene;
@@ -14,14 +15,10 @@ public class SceneManager {
 	public static final int MENUSCENEID = 101;
 	public static final int GAMESCENEID = 102;
 	public static final int LOADINGSCENEID = 103;
+	public static final int CREDITSSCENEID = 104;
 	// ---------------------------------------------
 	// SCENES
 	// ---------------------------------------------
-
-	private BaseScene splashScene;
-	private BaseScene menuScene;
-	private BaseScene gameScene;
-	private BaseScene loadingScene;
 
 	// ---------------------------------------------
 	// VARIABLES
@@ -36,7 +33,7 @@ public class SceneManager {
 	private Engine engine = ResourcesManager.getInstance().engine;
 
 	public enum SceneType {
-		SCENE_SPLASH, SCENE_MENU, SCENE_GAME, SCENE_LOADING,
+		SCENE_SPLASH, SCENE_MENU, SCENE_GAME, SCENE_LOADING, SCENE_CREDITS
 	}
 
 	// ---------------------------------------------
@@ -47,25 +44,6 @@ public class SceneManager {
 		engine.setScene(scene);
 		currentScene = scene;
 		currentSceneType = scene.getSceneType();
-	}
-
-	public void setScene(SceneType sceneType) {
-		switch (sceneType) {
-		case SCENE_MENU:
-			setScene(menuScene);
-			break;
-		case SCENE_GAME:
-			setScene(gameScene);
-			break;
-		case SCENE_SPLASH:
-			setScene(splashScene);
-			break;
-		case SCENE_LOADING:
-			setScene(loadingScene);
-			break;
-		default:
-			break;
-		}
 	}
 
 	// ---------------------------------------------
@@ -97,14 +75,19 @@ public class SceneManager {
 		case MENUSCENEID:
 			scene = new MainMenuScene();
 			break;
+		case CREDITSSCENEID:
+			scene = new CreditsScene();
+			break;
 		default:
 			break;
 		}
 
 		currentScene = scene;
+		setScene(currentScene);
 		return currentScene;
 	}
 
+	/*
 	public Scene createSplashScene() {
 		ResourcesManager.getInstance().loadSplashScreen();
 		splashScene = new SplashScene();
@@ -117,5 +100,6 @@ public class SceneManager {
 		splashScene.disposeScene();
 		splashScene = null;
 	}
+	*/
 
 }

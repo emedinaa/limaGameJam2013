@@ -122,14 +122,13 @@ public class ElementEnemy extends GameObject {
 		}
 	}
 
-	public void activeLoveMode() 
-	{
-		
-		//mTextureRegion=GameActivity
-		//mTextureRegion=ResourcesManager.getInstance().activity.mEnemyTiledTextureRegionBear2;
-		
+	public void activeLoveMode() {
+
+		// mTextureRegion=GameActivity
+		// mTextureRegion=ResourcesManager.getInstance().activity.mEnemyTiledTextureRegionBear2;
+
 		if (player.getX() > getX()) {
-			
+
 			this.mPhysicsHandler.setVelocityX(velX * 1.3f);
 			setFlippedHorizontal(true);
 		} else if (player.getX() < getX()) {

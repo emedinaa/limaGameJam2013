@@ -28,6 +28,8 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.io.in.IInputStreamOpener;
 
+import android.view.KeyEvent;
+
 import com.limagame.projects.killcupid.manager.ResourcesManager;
 import com.limagame.projects.killcupid.manager.SceneManager;
 
@@ -40,7 +42,6 @@ public class GameActivity extends SimpleBaseGameActivity {
 	// --------------------------------------------------
 
 	// private Camera mCamera;
-	private Scene mMainScene;
 
 	// private BitmapTextureAtlas mBitmapTextureAtlas;W
 
@@ -79,6 +80,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public ITextureRegion mHeartBroken;
 	public ITextureRegion mHeartComplete;
 	public ITextureRegion mbgTiledTexture;
+	public ITextureRegion mCreditsBg;
 
 	public Sound sndGrito;
 	public Sound sndHits[];
@@ -126,7 +128,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"rabit1.png", 1, 1);
-		
+
 		this.mEnemyTiledTextureRegionRabbit2 = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
 						"rabit2.png", 1, 1);
@@ -149,17 +151,22 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 		// Load Enemies
 
-		/*this.mEnemyTiledTextureRegionBear = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"bear.png", 1, 1);
-
-		this.mEnemyTiledTextureRegionPony = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"pony.png", 1, 1);
-
-		this.mEnemyTiledTextureRegionRabbit = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(this.mBitmapTextureAtlas, this,
-						"rabit2.png", 1, 1);*/
+		/*
+		 * this.mEnemyTiledTextureRegionBear =
+		 * BitmapTextureAtlasTextureRegionFactory
+		 * .createTiledFromAsset(this.mBitmapTextureAtlas, this, "bear.png", 1,
+		 * 1);
+		 * 
+		 * this.mEnemyTiledTextureRegionPony =
+		 * BitmapTextureAtlasTextureRegionFactory
+		 * .createTiledFromAsset(this.mBitmapTextureAtlas, this, "pony.png", 1,
+		 * 1);
+		 * 
+		 * this.mEnemyTiledTextureRegionRabbit =
+		 * BitmapTextureAtlasTextureRegionFactory
+		 * .createTiledFromAsset(this.mBitmapTextureAtlas, this, "rabit2.png",
+		 * 1, 1);
+		 */
 
 		// End Load Enemies
 
@@ -174,6 +181,9 @@ public class GameActivity extends SimpleBaseGameActivity {
 		mTexture = _loadTexture("bgGame.jpg");
 		this.mbgTiledTexture = TextureRegionFactory
 				.extractFromTexture(mTexture);
+
+		mTexture = _loadTexture("CREDITOS.png");
+		this.mCreditsBg = TextureRegionFactory.extractFromTexture(mTexture);
 
 		try {
 			this.mBitmapTextureAtlas
@@ -210,7 +220,8 @@ public class GameActivity extends SimpleBaseGameActivity {
 	@Override
 	protected Scene onCreateScene() {
 		// return SceneManager.getInstance().createSplashScene();
-		return SceneManager.getInstance().createScene(SceneManager.GAMESCENEID);
+		return SceneManager.getInstance().createScene(
+				SceneManager.CREDITSSCENEID);
 	}
 
 	@Override
@@ -249,6 +260,20 @@ public class GameActivity extends SimpleBaseGameActivity {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		System.exit(0);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
+		}
+		return false;
 	}
 
 }
