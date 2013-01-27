@@ -22,6 +22,7 @@ import com.limagame.projects.killcupid.GameActivity;
 import com.limagame.projects.killcupid.entities.ControlEntity;
 import com.limagame.projects.killcupid.entities.GameOverEntity;
 import com.limagame.projects.killcupid.manager.ResourcesManager;
+import com.limagame.projects.killcupid.manager.SceneManager;
 import com.limagame.projects.killcupid.manager.SceneManager.SceneType;
 import com.limagame.projects.killcupid.view.ui.CupidEnemy;
 import com.limagame.projects.killcupid.view.ui.ElementEnemy;
@@ -98,7 +99,7 @@ public class GameScene extends BaseScene {
 		controlEntity.setZIndex(5000);
 		this.attachChild(controlEntity);
 
-		gameOverEntity = new GameOverEntity(resourcesManager);
+		gameOverEntity = new GameOverEntity();
 		gameOverEntity.setZIndex(9999);
 		gameOverEntity.setVisible(false);
 		this.attachChild(gameOverEntity);
@@ -298,7 +299,7 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void onBackKeyPressed() {
-		System.exit(0);
+		SceneManager.getInstance().createScene(SceneManager.MENUSCENEID);
 	}
 
 	@Override
@@ -308,7 +309,10 @@ public class GameScene extends BaseScene {
 
 	@Override
 	public void disposeScene() {
-
+		if (bgMusic != null) {
+			bgMusic.stop();
+			bgMusic.release();
+		}
 	}
 
 	/**
@@ -447,6 +451,11 @@ public class GameScene extends BaseScene {
 
 		resourcesManager.engine.clearUpdateHandlers();
 		resourcesManager.engine.unregisterUpdateHandler(render);
+
+		if (!controlEntity.isAlive()) {
+			gameOverEntity.setGame(false);
+		}
+
 		gameOverEntity.setVisible(true);
 	}
 

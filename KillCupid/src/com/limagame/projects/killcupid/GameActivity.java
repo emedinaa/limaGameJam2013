@@ -85,6 +85,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 	public ITextureRegion mbgTiledTexture;
 	public ITextureRegion mCreditsBg;
 	public ITextureRegion mMainMenuBg;
+	public ITextureRegion mGameWin;
 
 	public Sound sndGrito;
 	public Sound sndHits[];
@@ -112,6 +113,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 	protected void onCreateResources() {
 
 		_loadFont();
+		_loadSounds();
 
 		ResourcesManager.prepareManager(mEngine, this, camera,
 				getVertexBufferObjectManager());
@@ -198,6 +200,9 @@ public class GameActivity extends SimpleBaseGameActivity {
 		mTexture = _loadTexture("FONDO_MENU.png");
 		this.mMainMenuBg = TextureRegionFactory.extractFromTexture(mTexture);
 
+		mTexture = _loadTexture("ganaste.png");
+		this.mGameWin = TextureRegionFactory.extractFromTexture(mTexture);
+
 		try {
 			this.mBitmapTextureAtlas
 					.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(
@@ -208,8 +213,6 @@ public class GameActivity extends SimpleBaseGameActivity {
 		}
 
 		getEngine().enableVibrator(this);
-
-		loadSounds();
 	}
 
 	private ITexture _loadTexture(final String path) {
@@ -232,7 +235,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 
 	@Override
 	protected Scene onCreateScene() {
-		return SceneManager.getInstance().createScene(SceneManager.GAMESCENEID);
+		return SceneManager.getInstance().createScene(SceneManager.MENUSCENEID);
 	}
 
 	@Override
@@ -240,7 +243,7 @@ public class GameActivity extends SimpleBaseGameActivity {
 		return new LimitedFPSEngine(pEngineOptions, 60);
 	}
 
-	private void loadSounds() {
+	private void _loadSounds() {
 		// Cargar grito
 		try {
 			sndGrito = SoundFactory.createSoundFromAsset(getEngine()
